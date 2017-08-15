@@ -1,30 +1,18 @@
-const mysql  =  require ( 'mysql' );
+const mysql  =  require ('mysql');
 const state  =  {
-    pool: null
-};
+    pool: null,
+  };
 exports.connect  =  function(done)  {
     state.pool  =  mysql.createPool ({
-        host :  'localhost',
-        user :  'seng365',
-        password :  "secret",
+        host:  'localhost',
+        user:  'seng365a',
+        password:  'secret',
         port:  '6033',
-        database :  "lab3"  //NOTE:  we  need  to  create  this  first
-});
+        database:  'assignment',
+      });
     done();
-};
-exports.get = function ()  {
+  };
+exports.get = function()  {
     return state.pool;
-};
+  };
 
-
-// const mysql = require('mysql');
-// const state = {
-//     pool:null
-// };
-//
-// exports.connect = function (done) {
-//     state.pool = mysql.createPool({
-//
-//     })
-//
-// }
