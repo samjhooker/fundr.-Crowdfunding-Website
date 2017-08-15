@@ -1,35 +1,35 @@
-const  User  =  require ( '../models/user.server.model' );
+const  User  =  require ('../models/user.server.model');
 
 
-exports.list  =  function ( req,  res ){
-    User.getAll(function(result){
+exports.list  =  function(req,  res) {
+    User.getAll(function(result) {
         res.json(result);
-    });
-};
+      });
+  };
 
-exports.create = function(req, res){
-    let user_data = {
-        "username" : req.body.username
-    };
+exports.create = function(req, res) {
+    let userData = {
+        username: req.body.username,
+      };
     console.log(req.body)
-    let user = user_data['username'].toString();
+    let user = userData['username'].toString();
     let values = [
-        [user]
+        [user],
     ];
-    User.insert(values, function(result){
+    User.insert(values, function(result) {
         res.json(result);
-    });
-};
+      });
+  };
 
-exports.read  =  function ( req,  res ){
-    return  null ;
-};
-exports.update  =  function ( req,  res ){
-    return  null ;
-};
-exports.delete  =  function ( req,  res ){
-    return  null ;
-};
-exports.userById  =  function ( req,  res ){
-    return  null;
-};
+exports.read  =  function(req,  res) {
+    return null ;
+  };
+exports.update  =  function(req,  res) {
+    return null ;
+  };
+exports.delete  =  function(req,  res) {
+    return null ;
+  };
+exports.userById  =  function(req,  res) {
+    return null;
+  };
