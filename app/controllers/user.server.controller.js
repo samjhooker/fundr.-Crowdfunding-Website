@@ -7,29 +7,60 @@ exports.list  =  function(req,  res) {
       });
   };
 
+
+
+
+
 exports.create = function(req, res) {
-    let userData = {
-        username: req.body.username,
-      };
-    console.log(req.body)
-    let user = userData['username'].toString();
-    let values = [
-        [user],
-    ];
-    User.insert(values, function(result) {
-        res.json(result);
-      });
+
+    try{
+        let values = [
+            req.body.user.username.toString(),
+            req.body.user.location.toString(),
+            req.body.user.email.toString(),
+            req.body.password.toString()
+        ];
+
+        User.insert(values, function(result) {
+            if(result.insertId){
+                res.status(201);
+                res.json(result.insertId);
+
+            }else{
+                res.status(500);
+                res.send("SQL Error");
+            }
+        });
+
+    } catch (err){
+        res.status(400);
+        res.send("Malformed Request")
+    }
+
   };
 
-exports.read  =  function(req,  res) {
-    return null ;
-  };
+
+//gets one user with ID
+exports.userById  =  function(req,  res) {
+    let id = req.params.userId;
+
+    User.userById(id, function(result) {
+        res.json(result);
+    });
+
+};
+
 exports.update  =  function(req,  res) {
     return null ;
   };
 exports.delete  =  function(req,  res) {
     return null ;
   };
-exports.userById  =  function(req,  res) {
-    return null;
-  };
+
+
+exports.login  =  function(req,  res) {
+    return null ;
+};
+exports.logout  =  function(req,  res) {
+    return null ;
+};

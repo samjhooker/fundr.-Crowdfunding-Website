@@ -5,7 +5,9 @@
   "keywords" : ["croudfunding", "application", "api"],
   "author" : "Samuel Hooker",
   "main" : "app.js",
-  "start" : "node app.js",
+  "scripts" : {
+    "start" : "node app.js"
+  },
   "version" : "0.0.1",
   "dependencies" : {
     "express": "^4.15.3",

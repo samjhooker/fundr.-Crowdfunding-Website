@@ -7,21 +7,56 @@ exports.getAll = function(done) {
         if (err) {
           return done({ERROR: 'Error selecting'})
         };
-        return done(rows);
+        var res = [];
+        for(var index in rows){
+            var item = rows[index]
+
+            var new_item = {
+                "id": item.user_id,
+                "username": item.username,
+                "location": item.location,
+                "email": item.email
+            }
+            res.push(new_item)
+
+        }
+        return done(res);
       });
-  }
-
-
-
-
-exports.getOne  =  function() {
-    return null;
   };
 
-exports.insert  = function(username, done) {
-    let values = [username];
-    db.get().query('insert into Users (username) values ?', values, function(err, result) {
-        if (err) return done(err);
+
+
+
+exports.userById  =  function(id, done) {
+
+    var query = 'select * from Users where user_id = ' + id;
+    db.get().query(query, function(err, rows) {
+        if (err) {
+            return done({ERROR: 'Error selecting'})
+        };
+        var item = rows[0]
+
+        if(item){
+            var new_item = {
+                "id": item.user_id,
+                "username": item.username,
+                "location": item.location,
+                "email": item.email
+            }
+            return done(new_item);
+        }else{
+            return done({ERROR: 'User Not Found'})
+        }
+    });
+  };
+
+
+exports.insert  = function(values, done) {
+    let params = [values];
+    db.get().query('insert into Users (username, location, email, password) values (?)', params, function(err, result) {
+        if (err){
+            done(err)
+        } 
         done(result);
       });
   };
@@ -33,3 +68,4 @@ exports.alter  =  function() {
 exports.remove  =  function() {
     return null;
   };
+
