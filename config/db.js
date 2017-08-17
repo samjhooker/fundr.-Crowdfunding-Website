@@ -4,10 +4,10 @@ const state  =  {
   };
 exports.connect  =  function(done)  {
     state.pool  =  mysql.createPool ({
-        host:  'localhost',
-        user:  'seng365a',
+        host:  process.env.SENG365_MYSQL_HOST || 'localhost',
+        user:  'root',
         password:  'secret',
-        port:  '6033',
+        port: process.env.SENG365_MYSQL_PORT || '6033',
         database:  'assignment',
       });
     done();
