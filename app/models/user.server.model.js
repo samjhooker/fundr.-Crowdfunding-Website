@@ -51,6 +51,31 @@ exports.userById  =  function(id, done) {
   };
 
 
+exports.userByUsernameAndPassword = function(username, pswd, done){
+    var query = 'select * from Users where username = "'+ username + '" and password = "' + pswd + '"';
+    console.log(query);
+    db.get().query(query, function(err, rows) {
+        if (err) {
+            console.log(err)
+            return done({ERROR: 'Error selecting'})
+        };
+        var item = rows[0]
+
+        if(item){
+            var new_item = {
+                "id": item.user_id,
+                "username": item.username,
+                "location": item.location,
+                "email": item.email
+            }
+            return done(new_item);
+        }else{
+            return done({ERROR: 'User Not Found'})
+        }
+    });
+
+};
+
 exports.insert  = function(values, done) {
     let params = [values];
     db.get().query('insert into Users (username, location, email, password) values (?)', params, function(err, result) {

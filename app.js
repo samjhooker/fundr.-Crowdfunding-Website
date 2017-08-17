@@ -7,6 +7,7 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
+
 db.connect(function(err) {
     if (err) {
       console.log('Unable to connect to MySQL');
