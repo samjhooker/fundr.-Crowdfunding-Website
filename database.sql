@@ -29,6 +29,17 @@ create table Rewards(
     foreign key (project_id) references Projects(project_id)
 );
 
+create table Creator(
+    backer_id int not null auto_increment,
+    user_id int not null,
+    project_id int not null,
+    name varchar(50) not null,
+    creation_date timestamp not null default NOW(),
+    primary key (backer_id),
+    foreign key (user_id) references Users(user_id),
+    foreign key (project_id) references Projects(project_id)
+);
+
 create table Backers(
     backer_id int not null auto_increment,
     user_id int not null,
