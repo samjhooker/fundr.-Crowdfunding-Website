@@ -5,3 +5,10 @@ exports.getAllProjects = function(req,  res) {
         res.json(result);
     });
 };
+exports.getProjectById = function (req, res) {
+    let id = req.params.projectId;
+    Project.getProjectById(id, function(result){
+        res.json(result)
+    });
+
+}
