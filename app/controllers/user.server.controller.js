@@ -1,7 +1,5 @@
 const  User  =  require ('../models/user.server.model');
 var jwt = require('jsonwebtoken');
-const express = require('express');
-const app = express();
 
 
 
@@ -64,8 +62,6 @@ exports.update  =  function(req,  res) {
         req.body.user.email.toString(),
         req.body.password.toString()
     ];
-
-    console.log(   values);
 
     if(values.every(function(i) { return i !== undefined; })){
         User.update(values, function(result) {

@@ -89,7 +89,6 @@ exports.insert  = function(values, done) {
   };
 
 exports.update  = function(values, done) {
-    console.log(values);
 
     var query = 'update Users set username="'+values[1]+'", location="' + values[2] +
         '", email="' +values[3]+ '" where user_id='+values[0]+ ' and password = "' + values[4] + '"';
