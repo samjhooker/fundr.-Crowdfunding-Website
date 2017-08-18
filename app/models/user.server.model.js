@@ -78,13 +78,29 @@ exports.userByUsernameAndPassword = function(username, pswd, done){
 
 exports.insert  = function(values, done) {
     let params = [values];
-    db.get().query('insert into Users (username, location, email, password) values (?)', params, function(err, result) {
+
+
+    db.get().query('insert into Users (username, location, email, password) values (?)', params, function(err, result) {
         if (err){
             done(err)
         } 
         done(result);
       });
   };
+
+exports.update  = function(values, done) {
+    console.log(values);
+
+    var query = 'update Users set username="'+values[1]+'", location="' + values[2] +
+        '", email="' +values[3]+ '" where user_id='+values[0]+ ' and password = "' + values[4] + '"';
+    console.log(query);
+    db.get().query(query, function(err, result) {
+        if (err){
+            done(err)
+        }
+        done(result);
+    });
+};
 
 
 exports.alter  =  function() {

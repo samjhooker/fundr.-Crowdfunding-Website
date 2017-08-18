@@ -55,8 +55,38 @@ exports.userById  =  function(req,  res) {
 };
 
 exports.update  =  function(req,  res) {
-    return null ;
-  };
+    let id = req.params.userId;
+
+    let values = [
+        id,
+        req.body.user.username.toString(),
+        req.body.user.location.toString(),
+        req.body.user.email.toString(),
+        req.body.password.toString()
+    ];
+
+    console.log(   values);
+
+    if(values.every(function(i) { return i !== undefined; })){
+        User.update(values, function(result) {
+            console.log( result);
+            if(result.affectedRows == 1){
+                res.status(200);
+                res.send("OK");
+
+            }else{
+                res.status(404);
+                res.send("User not found");
+            }
+        });
+    }else{
+        res.status(400);
+        res.send("Malformed Request")
+    }
+
+};
+
+
 exports.delete  =  function(req,  res) {
     return null ;
   };

@@ -1,7 +1,7 @@
 const  users  =  require ('../controllers/user.server.controller');
 module.exports  =  function(app) {
     app.route ('/api/v1/users')
-        .post (users.loginRequired, users.create);
+        .post (users.create);
     app.route ('/api/v1/users/:userId')
         .get(users.userById)
         .put(users.update)
