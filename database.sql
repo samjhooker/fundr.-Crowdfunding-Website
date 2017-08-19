@@ -15,9 +15,10 @@ create table Projects(
     description varchar(1000) not null,
     target int not null,
     user_id int not null,
+    project_open TINYINT(1) not null default 1,
     creation_date timestamp not null default NOW(),
     primary key (project_id),
-    foreign key (user_id) references Users(user_id)
+    foreign key (user_id) references Users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 create table Rewards(
@@ -26,7 +27,7 @@ create table Rewards(
     amount int not null,
     description varchar(300) not null,
     primary key(reward_id),
-    foreign key (project_id) references Projects(project_id)
+    foreign key (project_id) references Projects(project_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 create table Creator(
@@ -36,8 +37,8 @@ create table Creator(
     name varchar(50) not null,
     creation_date timestamp not null default NOW(),
     primary key (backer_id),
-    foreign key (user_id) references Users(user_id),
-    foreign key (project_id) references Projects(project_id)
+    foreign key (user_id) references Users(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    foreign key (project_id) references Projects(project_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 create table Backers(
@@ -48,8 +49,8 @@ create table Backers(
     amount int not null,
     creation_date timestamp not null default NOW(),
     primary key (backer_id),
-    foreign key (user_id) references Users(user_id),
-    foreign key (project_id) references Projects(project_id)
+    foreign key (user_id) references Users(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    foreign key (project_id) references Projects(project_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 create table Images(
@@ -58,7 +59,7 @@ create table Images(
     creation_date timestamp not null default NOW(),
     image_data blob not null,
     primary key (image_id),
-    foreign key (project_id) references Projects(project_id)
+    foreign key (project_id) references Projects(project_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 insert into Users(username, location, email, password) values

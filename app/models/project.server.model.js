@@ -82,13 +82,25 @@ function getProjectForProjectId(id, done){
 exports.getProjectById = function(id, done){
 
     getBackersForProjectId(id, function (backers){
-        if(backers.ERROR) done({ERROR: "BACKERS SQL ERROR"}, 500);
+        if(backers.ERROR) {
+            done({ERROR: "BACKERS SQL ERROR"}, 500);
+            return;
+        }
         getRewardsForProjectId(id, function (rewards){
-            if(rewards.ERROR) done({ERROR: "REWARDS SQL ERROR"}, 500);
+            if(rewards.ERROR){
+                done({ERROR: "REWARDS SQL ERROR"}, 500);
+                return;
+            }
             getCreatorsForProjectId(id, function (creators){
-                if(creators.ERROR) done({ERROR: "CREATORS SQL ERROR"}, 500);
+                if(creators.ERROR) {
+                    done({ERROR: "CREATORS SQL ERROR"}, 500);
+                    return;
+                }
                 getProjectForProjectId(id, function(project){
-                    if(project.ERROR) done({ERROR: "Not Found"}, 404);
+                    if(project.ERROR){
+                        done({ERROR: "Not Found"}, 404);
+                        return;
+                    }
 
 
                     var numPledges = 0;

@@ -16,14 +16,14 @@ module.exports  =  function(app) {
 
 
     app.route ('/api/v1/projects')
-        .get(projects.getAllProjects);
-        //.post (projects.createProject);
+        .get(projects.getAllProjects)
+        .post (projects.createProject);
     app.route ('/api/v1/projects/:projectId')
         .get(projects.getProjectById);
         //.put(projects.updateProject);
-    app.route('/api/v1/projects/:projectId/image');
+    app.route('/api/v1/projects/:projectId/image')
         //.get(projects.getImage)
-        //.put(projects.updateImage);
+        .put(projects.updateImage);
     app.route('/api/v1/projects/:projectId/pledge');
         //.post(projects.pledge);
 

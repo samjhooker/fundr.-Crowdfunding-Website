@@ -5,7 +5,6 @@ const express = require('./config/express');
 const app = express();
 
 const bodyParser = require('body-parser');
-app.use(bodyParser.json());
 
 
 db.connect(function(err) {
