@@ -14,11 +14,9 @@ create table Projects(
     subtitle varchar(100) not null,
     description varchar(1000) not null,
     target int not null,
-    user_id int not null,
     project_open TINYINT(1) not null default 1,
     creation_date timestamp not null default NOW(),
-    primary key (project_id),
-    foreign key (user_id) references Users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
+    primary key (project_id)
 );
 
 create table Rewards(
@@ -67,8 +65,8 @@ insert into Users(username, location, email, password) values
 ("James", "Auckland", "samjhooker@gmail.com", "password"),
 ("Hooker", "Wellington", "samjhooker@gmail.com", "password");
 
-insert into Projects(title, subtitle, description, target, user_id) values
-("Awesome Project", "Really quite awesome", "undescribably awesome", 1000000, 1);
+insert into Projects(title, subtitle, description, target) values
+("Awesome Project", "Really quite awesome", "undescribably awesome", 1000000);
 
 insert into Backers(user_id, project_id, name, amount) values
 (2,1,"James", 90);

@@ -44,16 +44,10 @@ exports.createProject = function (req, res){
     }
 
     if(values.every(function(i) { return i !== undefined; })){
-        User.update(values, function(result) {
-            console.log( result);
-            if(result.affectedRows == 1){
-                res.status(200);
-                res.send("OK");
+        Project.createProject(values, creators, rewards, function(result, status) {
+            res.status(status);
+            res.send(result);
 
-            }else{
-                res.status(404);
-                res.send("User not found");
-            }
         });
     }else{
         res.status(400);

@@ -168,3 +168,92 @@ exports.getAll = function(done) {
         return done(res);
     });
 };
+
+
+
+
+function createProjectHelper(values, done){
+    var vals = [values];
+    db.get().query('insert into Projects(title, subtitle, description, target) values (?)', vals, function(err, rows) {
+        if (err) {
+            return done({ERROR: 'Projects SQL Error'}, 500);
+        };
+        return done(rows, 201);
+    });
+}
+
+function createCreatorHelper(project_id, creators, done) {
+    var creatorsString = '';
+    creators.forEach(function (c) {
+        if(c.name && c.id){
+            var line= ' ('+c.id+', '+ project_id +', "'+c.name +'"),'
+            creatorsString +=line;
+        }
+    })
+    if(creatorsString != '') {
+        creatorsString = creatorsString.substring(0, creatorsString.length - 1);
+        creatorsString += ";"
+    }else{
+        return done("empty", 200);
+    }
+
+    var query = 'insert into Creator (user_id, project_id, name) values' + creatorsString;
+    db.get().query(query, function(err, rows) {
+        if (err) {
+            return done({ERROR: 'Creators SQL Error'}, 500);
+        };
+        return done(rows, 201);
+    });
+
+}
+
+function createRewardHelper(project_id, rewards, done) {
+    var rewardString = '';
+    rewards.forEach(function (c) {
+        if(c.id && c.amount && c.description){
+            var line= ' (' + project_id + ', '+ c.amount +', "'+c.description +'"),'
+            rewardString +=line;
+        }
+    })
+    if(rewardString != '') {
+        rewardString = rewardString.substring(0, rewardString.length - 1);
+        rewardString += ";"
+    }else{
+        return done("empty", 200);
+    }
+    var query = 'insert into Rewards (project_id, amount, description) values'+ rewardString;
+    db.get().query(query, function(err, rows) {
+        if (err) {
+            return done({ERROR: 'Rewards SQL Error'}, 500);
+        };
+        return done(rows, 201);
+    });
+
+}
+
+
+
+
+exports.createProject = function(values, creators, rewards, done){
+
+    createProjectHelper(values, function (projectResult, status) {
+        if(projectResult.ERROR) return done(projectResult, status);
+        console.log(projectResult);
+        if(!projectResult.insertId) return done("Error creating Project", 500);
+        var project_id = projectResult.insertId;
+
+        createCreatorHelper(project_id, creators, function (creatorResult, status){
+            if(creatorResult.ERROR) return done(creatorResult, status);
+
+            createRewardHelper(project_id, rewards, function (rewardResult, status) {
+                if(rewardResult.ERROR) return done(rewardResult, status);
+
+                return done("OK", 201);
+
+            })
+
+        })
+    })
+
+
+}
