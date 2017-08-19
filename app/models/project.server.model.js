@@ -257,3 +257,20 @@ exports.createProject = function(values, creators, rewards, done){
 
 
 }
+
+exports.updateProject = function(id, value, done){
+
+    var query = 'update Projects set project_open = '+value+ ' where project_id = ' + id;
+    db.get().query(query, function(err, rows) {
+        if (err) {
+            return done({ERROR: 'update SQL Error'}, 500);
+        };
+        console.log(rows);
+        if(rows.affectedRows == 1){
+            return done("OK", 201);
+        }else{
+            return done("not Found", 404)
+        }
+    });
+
+}

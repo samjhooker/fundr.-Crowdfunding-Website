@@ -19,8 +19,8 @@ module.exports  =  function(app) {
         .get(projects.getAllProjects)
         .post (projects.createProject);
     app.route ('/api/v1/projects/:projectId')
-        .get(projects.getProjectById);
-        //.put(projects.updateProject);
+        .get(projects.getProjectById)
+        .put(projects.updateProject);
     app.route('/api/v1/projects/:projectId/image')
         //.get(projects.getImage)
         .put(projects.updateImage);

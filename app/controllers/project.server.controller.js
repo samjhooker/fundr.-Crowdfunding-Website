@@ -56,4 +56,28 @@ exports.createProject = function (req, res){
 
 
 
+};
+
+
+exports.updateProject = function(req, res){
+    try{
+        if(req.body.open != true && req.body.open != false){
+            res.status(400);
+            return res.send("Malformed Request");
+        }
+
+        var value = (req.body.open == true) ? 1 : 0;
+        let id = req.params.projectId;
+
+        Project.updateProject(id, value, function(result, status){
+            res.status(status);
+            res.send(result);
+        })
+    } catch (err){
+        res.status(400);
+        return res.send("Malformed Request");
+    }
+
+
+
 }
