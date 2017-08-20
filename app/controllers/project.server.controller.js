@@ -17,8 +17,12 @@ exports.getProjectById = function (req, res) {
 exports.updateImage = function(req,res){
     console.log("here");
     let id = req.params.projectId;
-    let img = req.body;
-    console.log(img);
+    console.log(req.file.buffer.toString());
+
+
+    console.log(req.body);
+
+
 
 
 

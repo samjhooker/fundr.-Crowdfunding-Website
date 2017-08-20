@@ -265,7 +265,6 @@ exports.updateProject = function(id, value, done){
         if (err) {
             return done({ERROR: 'update SQL Error'}, 500);
         };
-        console.log(rows);
         if(rows.affectedRows == 1){
             return done("OK", 201);
         }else{

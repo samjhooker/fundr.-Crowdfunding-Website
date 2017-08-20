@@ -4,9 +4,6 @@ const express = require('./config/express');
 
 const app = express();
 
-const bodyParser = require('body-parser');
-
-
 db.connect(function(err) {
     if (err) {
       console.log('Unable to connect to MySQL');
