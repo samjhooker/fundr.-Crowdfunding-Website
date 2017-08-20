@@ -40,7 +40,7 @@ module.exports  =  function(app) {
         .put(jsonParse, projects.updateProject);
 
     app.route('/api/v1/projects/:projectId/image')
-        //.get(jsonParse, projects.getImage)
+        .get(jsonParse, projects.getImage)
         .put(upload.single('img'), projects.updateImage);
 
     app.route('/api/v1/projects/:projectId/pledge');

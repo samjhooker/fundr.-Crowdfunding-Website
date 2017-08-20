@@ -14,6 +14,7 @@ create table Projects(
     subtitle varchar(100) not null,
     description varchar(1000) not null,
     target int not null,
+    image_data blob,
     project_open TINYINT(1) not null default 1,
     creation_date timestamp not null default NOW(),
     primary key (project_id)
@@ -48,15 +49,6 @@ create table Backers(
     creation_date timestamp not null default NOW(),
     primary key (backer_id),
     foreign key (user_id) references Users(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    foreign key (project_id) references Projects(project_id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-create table Images(
-    image_id int not null auto_increment,
-    project_id int not null,
-    creation_date timestamp not null default NOW(),
-    image_data blob not null,
-    primary key (image_id),
     foreign key (project_id) references Projects(project_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 

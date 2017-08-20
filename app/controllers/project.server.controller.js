@@ -1,4 +1,6 @@
 const Project = require ('../models/project.server.model');
+var fs = require("fs");
+
 
 exports.getAllProjects = function(req,  res) {
     Project.getAll(function(result) {
@@ -15,17 +17,53 @@ exports.getProjectById = function (req, res) {
 }
 
 exports.updateImage = function(req,res){
-    console.log("here");
     let id = req.params.projectId;
-    console.log(req.file.buffer.toString());
+
+    if(req.file){
+        if(req.file.buffer){
+            var imgData = req.file.buffer;
+            Project.updateImage(id, imgData, function (result, code) {
+                res.status(code);
+                res.send(result)
+            })
+        }else{
+            res.status(400);
+            res.send("Malformed Request")
+        }
+    }else{
+        res.status(400);
+        res.send("Malformed Request")
+    }
+}
+
+exports.getImage = function(req, res){
+    let id = req.params.projectId;
+    Project.getImage(id, function(result, code){
+        if(result.ERROR){
+            res.status(code);
+            res.send(result);
+            return;
+        }
+        if(result == null){
+            res.status(200);
+            res.send("OK")
+            return
+        }
+
+        fs.writeFile(__dirname+'/img.jpg', result, 'binary', function(err) {
+            if(err){
+                res.status(500);
+                res.send({ERROR: "There was an error recreating the image"});
+            }else{
+                res.status(200);
+                var imageName = __dirname + '/img.jpg';
+                res.sendFile(imageName);
+            }
+        });
 
 
-    console.log(req.body);
 
-
-
-
-
+    });
 
 }
 

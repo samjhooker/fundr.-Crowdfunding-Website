@@ -273,3 +273,42 @@ exports.updateProject = function(id, value, done){
     });
 
 }
+
+
+exports.updateImage = function(project_id, imageData, done){
+    var query = "update Projects set image_data = ? where project_id = " + project_id;
+    db.get().query(query, imageData, function(err, rows) {
+        if (err) {
+            return done({ERROR: "error inserting data"}, 500);
+        }
+        else{
+            if(rows.affectedRows == 1){
+                return done("OK", 201)
+            }else{
+                return done("not found", 404)
+            }
+        }
+    });
+
+
+}
+
+exports.getImage = function(project_id, done){
+    var query = "select image_data from Projects where project_id = " + project_id;
+    db.get().query(query, function(err, rows) {
+        if (err) {
+            return done({ERROR: "could not get image"}, 500);
+        }
+        else{
+            console.log(rows[0].image_data);
+
+            if(rows[0].image_data != null){
+                return done(rows[0].image_data, 200);
+            }else{
+                return done(null, 200);
+            }
+        }
+    });
+
+
+}
