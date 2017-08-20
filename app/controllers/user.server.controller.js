@@ -90,28 +90,41 @@ exports.delete  =  function(req,  res) {
 
 exports.login  =  function(req,  res) {
 
-    var username = req.body.username;
-    var password = req.body.password;
+    try{
+        var username = req.body.username;
+        var password = req.body.password;
 
-    if(!username || !password){
-        res.status(400).send("Invalid username/password supplied");
-        return;
-    }
-
-    User.userByUsernameAndPassword(username, password, function(result) {
-        if(result.ERROR){
-            res.status(400).send(result);
+        if(!username || !password){
+            res.status(400).send("Invalid username/password supplied");
             return;
-        }else{
-            return res.json({id: result.id, token: jwt.sign(result, "SECRET")});
         }
-    });
+
+        User.userByUsernameAndPassword(username, password, function(result) {
+            if(result.ERROR){
+                res.status(400).send(result);
+                return;
+            }else{
+                var token = jwt.sign(result, "SECRET");
+                user = null;
+                user = result;
+                user.token = token;
+                return res.json({id: result.id, token: token});
+            }
+        });
+
+    }catch(err){
+        res.status(400).send("Malformed request");
+    }
 };
 
 
 
 exports.logout  =  function(req,  res) {
-    return null ;
+    if(user){
+        user = null;
+        return res.status(200).send("OK");
+    }
+    return
 };
 
 

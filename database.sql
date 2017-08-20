@@ -1,3 +1,7 @@
+create database if not exist assignment1;
+use assignment1;
+
+
 create table Users(
     user_id int not null auto_increment,
     username varchar(50) not null,
