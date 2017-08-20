@@ -46,7 +46,7 @@ function getBackersForProjectId(id, done){
 function getRewardsForProjectId(id, done){
     db.get().query('select * from Rewards where project_id='+ id, function(err, rows) {
         if (err) {
-            return done({ERROR: 'Error finding rewards'})
+            return done({ERROR: 'not found'})
         };
         var res = [];
         for(var index in rows){
@@ -62,6 +62,13 @@ function getRewardsForProjectId(id, done){
         }
         return done(res);
     });
+}
+
+exports.getRewards = function(id, done){
+    getRewardsForProjectId(id, function(result){
+        if(result.ERROR) return done('not found', 404);
+        done(result, 200);
+    })
 }
 
 function getProjectForProjectId(id, done){
@@ -209,12 +216,19 @@ function createCreatorHelper(project_id, creators, done) {
 
 function createRewardHelper(project_id, rewards, done) {
     var rewardString = '';
-    rewards.forEach(function (c) {
-        if(c.id && c.amount && c.description){
-            var line= ' (' + project_id + ', '+ c.amount +', "'+c.description +'"),'
-            rewardString +=line;
-        }
-    })
+    try{
+        rewards.forEach(function (c) {
+            console.log(c.description);
+            if(c.id != undefined && c.amount != undefined && c.description != undefined){
+
+                var line= ' (' + project_id + ', '+ c.amount +', "'+c.description +'"),'
+                rewardString +=line;
+
+            }
+        })
+    } catch (err){
+        return done('malformed request', 400);
+    }
     if(rewardString != '') {
         rewardString = rewardString.substring(0, rewardString.length - 1);
         rewardString += ";"
@@ -231,6 +245,16 @@ function createRewardHelper(project_id, rewards, done) {
 
 }
 
+exports.createReward = function(project_id, values, done){
+    createRewardHelper(project_id, values, function(values, status){
+        if (status == 200 || status ==201){
+            return done("OK", 201);
+        }else if(status == 400){
+            return done('Malformed request', 400);
+        }
+        return done('not found', 404);
+    })
+}
 
 
 
@@ -300,15 +324,55 @@ exports.getImage = function(project_id, done){
             return done({ERROR: "could not get image"}, 500);
         }
         else{
-            console.log(rows[0].image_data);
-
-            if(rows[0].image_data != null){
-                return done(rows[0].image_data, 200);
+            if(rows[0]){
+                if(rows[0].image_data != null){
+                    return done(rows[0].image_data, 200);
+                }else{
+                    return done(null, 200);
+                }
             }else{
-                return done(null, 200);
+                return done({ERROR: "project not found"}, 404)
             }
+
         }
     });
+
+
+}
+
+const User  =  require ('../models/user.server.model');
+
+exports.createPledge = function(project_id, values, done){
+
+    var userId = values[0];
+    User.userById(userId, function(result, status){
+        if(!result.ERROR){
+            var name = result.username;
+            console.log("here");
+
+            var query = "insert into Backers (user_id, project_id, name, amount, card_auth_token, is_anonymous)" +
+                " values ("+ values[0]+", "+ project_id+", '" + name + "', "+ values[1]+", '"+ values[3]+"', "+ values[2]+")";
+
+
+            db.get().query(query, function(err, rows) {
+                console.log("here");
+
+                if(err){
+                    return done("not found", 404);
+
+                }else{
+                    return done("OK", 201);
+                }
+
+            });
+
+
+        }else{
+            return done("not found", 404);
+        }
+    })
+
+
 
 
 }

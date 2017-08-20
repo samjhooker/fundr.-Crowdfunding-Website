@@ -47,6 +47,8 @@ create table Backers(
     name varchar(50) not null,
     amount int not null,
     creation_date timestamp not null default NOW(),
+    card_auth_token varchar(250) not null,
+    is_anonymous TINYINT(1) not null default 0,
     primary key (backer_id),
     foreign key (user_id) references Users(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
     foreign key (project_id) references Projects(project_id) ON DELETE CASCADE ON UPDATE CASCADE

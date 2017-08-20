@@ -8,12 +8,6 @@ const jsonParse  = bodyParser.json({
         extended: true
     });
 
-// const imgParse  = bodyParser.urlencoded({
-//     limit: '50mb',
-//     extended: true,
-//     parameterLimit: 1000000
-// });
-
 let multer = require('multer');
 var storage = multer.memoryStorage()
 let upload = multer({storage:storage});
@@ -38,13 +32,15 @@ module.exports  =  function(app) {
     app.route ('/api/v1/projects/:projectId')
         .get(jsonParse, projects.getProjectById)
         .put(jsonParse, projects.updateProject);
-
     app.route('/api/v1/projects/:projectId/image')
         .get(jsonParse, projects.getImage)
         .put(upload.single('img'), projects.updateImage);
+    app.route('/api/v1/projects/:projectId/pledge')
+        .post(jsonParse, projects.pledge);
 
-    app.route('/api/v1/projects/:projectId/pledge');
-        //.post(jsonParse, projects.pledge);
+    app.route('/api/v1/projects/:projectId/rewards')
+        .get(jsonParse, projects.getRewards)
+        .put(jsonParse, projects.createReward);
 
 
   };
