@@ -1,18 +1,19 @@
-create database if not exist assignment1;
-use assignment1;
+create database if not exists assignment1;
+USE assignment1;
 
 
-create table Users(
+create table if not exists Users(
     user_id int not null auto_increment,
     username varchar(50) not null,
     location varchar(50) not null,
     email varchar(50) not null,
     password varchar(50) not null,
     creation_date timestamp not null default NOW(),
+    active TINYINT(1) not null default 1,
     primary key (user_id)
 );
 
-create table Projects(
+create table if not exists Projects(
     project_id int not null auto_increment,
     title varchar(50) not null,
     subtitle varchar(100) not null,
@@ -24,7 +25,7 @@ create table Projects(
     primary key (project_id)
 );
 
-create table Rewards(
+create table if not exists Rewards(
     reward_id int not null auto_increment,
     project_id int not null,
     amount int not null,
@@ -33,7 +34,7 @@ create table Rewards(
     foreign key (project_id) references Projects(project_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-create table Creator(
+create table if not exists Creator(
     backer_id int not null auto_increment,
     user_id int not null,
     project_id int not null,
@@ -44,7 +45,7 @@ create table Creator(
     foreign key (project_id) references Projects(project_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-create table Backers(
+create table if not exists Backers(
     backer_id int not null auto_increment,
     user_id int not null,
     project_id int not null,
@@ -68,3 +69,6 @@ insert into Projects(title, subtitle, description, target) values
 
 insert into Backers(user_id, project_id, name, amount) values
 (2,1,"James", 90);
+
+insert into Creator(user_id, project_id, name) values
+(1,1,"Samuel");

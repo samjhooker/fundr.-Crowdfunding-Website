@@ -1,4 +1,7 @@
 const mysql  =  require ('mysql');
+var fs = require("fs");
+var sleep = require('sleep');
+
 const state  =  {
     pool: null,
   };
@@ -10,12 +13,45 @@ exports.connect  =  function(done)  {
         user:  'root',
         password:  'secret',
         port: process.env.SENG365_MYSQL_PORT || '6033',
-        database:  'mysql',
+        database:  'assignment1',
+        multipleStatements: true
       });
-    done();
+
+
+    conn(function (connection){
+        fs.readFile('database.sql', 'utf-8', function(err, tables){
+            connection.query(tables, function (err, res) {
+                if(err){
+                    return done(err);
+                }
+                else{
+                    return done();
+                }
+
+            })
+
+        });
+    });
+
+
+
+    //done();
+
+
+
 };
 
 
+function conn(done){
+    sleep.sleep(2);
+    state.pool.getConnection(function (err, connection) {
+        if(err){
+            conn(done);
+        }else{
+            done(connection);
+        }
+    });
+}
 
 
 exports.get = function()  {

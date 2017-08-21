@@ -1,4 +1,6 @@
 const  User  =  require ('../models/user.server.model');
+const  Project  =  require ('../models/project.server.model');
+
 var jwt = require('jsonwebtoken');
 
 
@@ -149,11 +151,86 @@ function checkTokenValid(req, res) {
 }
 
 exports.loginRequired = function(req, res, next) {
-    var isUser = checkTokenValid(req, res);
-    if (isUser) {
-        console.log(req.user)
-        next();
-    } else {
-        return res.status(401).json({ message: 'Unauthorized User' });
+    console.log(req.headers['x-authorization']);
+    if (req.headers && req.headers['x-authorization'] && req.headers['x-authorization'].split(' ')[0] === 'jwt') {
+        if(user && user.token == req.headers['x-authorization'].split(' ')[1]){
+            next();
+        }else{
+            return res.status(401).send('Unauthorized - not logged in');
+        }
+    }else{
+        return res.status(401).send('Unauthorized - not logged in');
     }
 };
+
+exports.userLoginRequired = function (req, res, next) {
+    let id = req.params.userId;
+    if(!id || !user){
+        return res.status(403).send('Forbidden - account not owned');
+    }
+    if(user.id == id){
+        next();
+    }else{
+        return res.status(403).send('Forbidden - account not owned');
+    }
+}
+
+exports.projectLoginRequired = function(req, result, next){
+
+    if(req.params.projectId && user){
+        var isCreator = false;
+
+        let projectId = req.params.projectId;
+        let userId = user.id;
+
+
+        Project.getCreatorsForProject(projectId, function (res) {
+
+            res.forEach(function (c) {
+                if(c.id == userId)isCreator = true;
+            })
+
+            if(isCreator){
+                next();
+            }else{
+                return result.status(403).send('Forbidden - unable to update a project you do not own');
+            }
+
+        })
+
+
+    }else{
+        return res.status(403).send('Forbidden - unable to update a project you do not own');
+    }
+
+}
+
+
+exports.noProjectLogin = function(req, result, next){
+
+    if(req.params.projectId && user){
+        var isCreator = false;
+
+        let projectId = req.params.projectId;
+        let userId = user.id;
+
+        Project.getCreatorsForProject(projectId, function (res) {
+            res.forEach(function (c) {
+                if(c.id == userId){
+                    isCreator = true;
+                }
+            })
+
+            if(isCreator){
+                return result.status(403).send('Forbidden - cannot pledge to own project - this is fraud!');
+            }else{
+                next();
+            }
+        })
+
+
+    }else{
+        return result.status(403).send('Forbidden - cannot pledge to own project - this is fraud!');
+    }
+
+}

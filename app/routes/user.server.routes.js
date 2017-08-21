@@ -18,8 +18,8 @@ module.exports  =  function(app) {
         .post (jsonParse, users.create);
     app.route ('/api/v1/users/:userId')
         .get(jsonParse, users.userById)
-        .put(jsonParse, users.update)
-        .delete(jsonParse, users.delete);
+        .put(jsonParse, users.loginRequired, users.userLoginRequired, users.update)
+        .delete(jsonParse, users.loginRequired, users.userLoginRequired, users.delete);
     app.route('/api/v1/users/login')
         .post(jsonParse, users.login);
     app.route('/api/v1/users/logout')
@@ -28,19 +28,18 @@ module.exports  =  function(app) {
 
     app.route ('/api/v1/projects')
         .get(jsonParse, projects.getAllProjects)
-        .post (jsonParse, projects.createProject);
+        .post (jsonParse, users.loginRequired, projects.createProject);
     app.route ('/api/v1/projects/:projectId')
         .get(jsonParse, projects.getProjectById)
-        .put(jsonParse, projects.updateProject);
+        .put(jsonParse, users.loginRequired, users.projectLoginRequired, projects.updateProject);
     app.route('/api/v1/projects/:projectId/image')
         .get(jsonParse, projects.getImage)
-        .put(upload.single('img'), projects.updateImage);
+        .put(upload.single('img'), users.loginRequired, users.projectLoginRequired, projects.updateImage);
     app.route('/api/v1/projects/:projectId/pledge')
-        .post(jsonParse, projects.pledge);
+        .post(jsonParse, users.loginRequired, users.noProjectLogin, projects.pledge);
 
     app.route('/api/v1/projects/:projectId/rewards')
         .get(jsonParse, projects.getRewards)
-        .put(jsonParse, projects.createReward);
-
+        .put(jsonParse, users.loginRequired, users.projectLoginRequired, projects.createReward);
 
   };

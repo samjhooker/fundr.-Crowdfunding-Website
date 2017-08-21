@@ -22,6 +22,14 @@ function getCreatorsForProjectId(id, done){
     });
 }
 
+exports.getCreatorsForProject = function(id, done){
+    getCreatorsForProjectId(id, function(res){
+        console.log("rows done")
+        return done(res);
+    })
+}
+
+
 function getBackersForProjectId(id, done){
     db.get().query('select * from Backers where project_id='+ id, function(err, rows) {
         if (err) {
@@ -41,6 +49,7 @@ function getBackersForProjectId(id, done){
         return done(res);
     });
 }
+
 
 
 function getRewardsForProjectId(id, done){
@@ -348,7 +357,6 @@ exports.createPledge = function(project_id, values, done){
     User.userById(userId, function(result, status){
         if(!result.ERROR){
             var name = result.username;
-            console.log("here");
 
             var query = "insert into Backers (user_id, project_id, name, amount, card_auth_token, is_anonymous)" +
                 " values ("+ values[0]+", "+ project_id+", '" + name + "', "+ values[1]+", '"+ values[3]+"', "+ values[2]+")";
