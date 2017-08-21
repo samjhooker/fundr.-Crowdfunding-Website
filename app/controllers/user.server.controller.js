@@ -67,7 +67,6 @@ exports.update  =  function(req,  res) {
 
     if(values.every(function(i) { return i !== undefined; })){
         User.update(values, function(result) {
-            console.log( result);
             if(result.affectedRows == 1){
                 res.status(200);
                 res.send("OK");
@@ -86,8 +85,14 @@ exports.update  =  function(req,  res) {
 
 
 exports.delete  =  function(req,  res) {
-    return null ;
-  };
+    let id = req.params.userId;
+    User.deleteUser(id, function (result, status) {
+        res.status(status);
+        res.send(result)
+
+    })
+
+};
 
 
 exports.login  =  function(req,  res) {
@@ -131,11 +136,7 @@ exports.logout  =  function(req,  res) {
 
 
 function checkTokenValid(req, res) {
-    console.log("this does something");
-    console.log(req.headers.authorization);
     if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'jwt') {
-        console.log("got here" +
-            "")
         jwt.verify(req.headers.authorization.split(' ')[1], "SECRET", function (err, decode) {
             if (err){
                 req.user = undefined;
@@ -151,7 +152,6 @@ function checkTokenValid(req, res) {
 }
 
 exports.loginRequired = function(req, res, next) {
-    console.log(req.headers['x-authorization']);
     if (req.headers && req.headers['x-authorization'] && req.headers['x-authorization'].split(' ')[0] === 'jwt') {
         if(user && user.token == req.headers['x-authorization'].split(' ')[1]){
             next();

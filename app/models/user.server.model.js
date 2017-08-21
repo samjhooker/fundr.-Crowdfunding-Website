@@ -53,10 +53,8 @@ exports.userById  =  function(id, done) {
 
 exports.userByUsernameAndPassword = function(username, pswd, done){
     var query = 'select * from Users where username = "'+ username + '" and password = "' + pswd + '"';
-    console.log(query);
     db.get().query(query, function(err, rows) {
         if (err) {
-            console.log(err)
             return done({ERROR: 'Error selecting'})
         };
         var item = rows[0]
@@ -92,7 +90,6 @@ exports.update  = function(values, done) {
 
     var query = 'update Users set username="'+values[1]+'", location="' + values[2] +
         '", email="' +values[3]+ '" where user_id='+values[0]+ ' and password = "' + values[4] + '"';
-    console.log(query);
     db.get().query(query, function(err, result) {
         if (err){
             done(err)
@@ -109,3 +106,18 @@ exports.remove  =  function() {
     return null;
   };
 
+
+
+exports.deleteUser = function (id, done) {
+    var query = 'update Users set active = 0 where user_id = ?';
+    db.get().query(query, id, function(err, result) {
+        if (err){
+            return done(err, 500);
+        }
+        if (result.affectedRows >= 1){
+            return done("user deleted", 200);
+        }else{
+            return done("User not found", 404);
+        }
+    });
+}

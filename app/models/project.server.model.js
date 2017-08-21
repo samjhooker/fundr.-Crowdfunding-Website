@@ -24,7 +24,6 @@ function getCreatorsForProjectId(id, done){
 
 exports.getCreatorsForProject = function(id, done){
     getCreatorsForProjectId(id, function(res){
-        console.log("rows done")
         return done(res);
     })
 }
@@ -227,7 +226,6 @@ function createRewardHelper(project_id, rewards, done) {
     var rewardString = '';
     try{
         rewards.forEach(function (c) {
-            console.log(c.description);
             if(c.id != undefined && c.amount != undefined && c.description != undefined){
 
                 var line= ' (' + project_id + ', '+ c.amount +', "'+c.description +'"),'
@@ -271,7 +269,6 @@ exports.createProject = function(values, creators, rewards, done){
 
     createProjectHelper(values, function (projectResult, status) {
         if(projectResult.ERROR) return done(projectResult, status);
-        console.log(projectResult);
         if(!projectResult.insertId) return done("Error creating Project", 500);
         var project_id = projectResult.insertId;
 
@@ -363,8 +360,6 @@ exports.createPledge = function(project_id, values, done){
 
 
             db.get().query(query, function(err, rows) {
-                console.log("here");
-
                 if(err){
                     return done("not found", 404);
 
