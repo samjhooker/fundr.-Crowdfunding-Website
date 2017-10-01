@@ -1,0 +1,440 @@
+body{
+    font-family: 'Open Sans', sans-serif;
+
+}
+
+
+h1{
+    font-family: 'Crimson Text', serif;
+    font-weight: 700;
+    font-size: 2rem;
+}
+h2{
+    font-family: 'Crimson Text', serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    margin:0;
+}
+h3{
+    font-family: 'Crimson Text', serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin:0.3rem;
+    color: white;
+
+
+}
+
+#header{
+    width: 100%;
+    height: 4rem;
+    background-color: black;
+    position: fixed;
+    left: 0;
+    top:0;
+    z-index:100;
+}
+
+#header-title{
+    position: absolute;
+    color: white;
+    margin-top:1.3rem;
+    left: 6%;
+}
+#account-text{
+    position: absolute;
+    color: white;
+    margin-top:1.3rem;
+    right: 6%;
+}
+#account-text:hover{
+    color: #8B8B8B;
+}
+
+#header-content{
+    z-index: 6;
+    position: fixed;
+    top: 4rem;
+    left: 0;
+    width: 100%;
+    max-height:0vh;
+    min-height:0vh;
+    -webkit-transition: all 0.5s; /* Safari */
+    transition: all 0.5s;
+    background-color: black;
+    overflow: hidden;
+}
+
+#funder-about{
+    color: lightgray;
+}
+
+.white-button{
+    margin: 0.5rem;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    background-color: black;
+    color:white;
+    font-family: 'Crimson Text', serif;
+    text-align: center;
+    border:solid;
+    border-width: 1px;
+    border-color: white;
+}
+
+.white-button:hover{
+    background-color: #8B8B8B;
+}
+
+.login-form{
+    width: 15rem;
+    background-color: white;
+    color: black;
+
+    padding: 0.3rem;
+    margin: 0rem 0 0.3rem 0.2rem;
+    text-align: center;
+}
+
+/*LARGE SCREENS*/
+@media screen and (min-width: 700px) {
+    .header-expanded {
+        max-height: 80vh !important;
+    }
+
+    #funder-about{
+        width: 50%;
+        padding: 2rem 2rem 2rem 6%;
+        display: inline-block;
+    }
+    #login-register{
+        width: 50%;
+        float: right;
+        padding: 0.5rem 6% 2rem 2rem;
+        text-align: right;
+
+    }
+    .white-button{
+        margin: 0.2rem 0 0.2rem 0.2rem !important;
+        width: 15rem;
+    }
+}
+
+/*SMALL SCREENS*/
+@media screen and (max-width: 700px) {
+
+    #header-content {
+        overflow: scroll !important;
+    }
+
+    .header-expanded {
+        max-height: 100vh !important;
+        min-height: 100vh !important;
+    }
+
+    #funder-about{
+        width: 100%;
+        padding: 2rem 6% 2rem 6%;
+    }
+    #login-register{
+        width: 100%;
+        float: right;
+        padding: 0.5rem 6% 2rem 6%;
+        text-align: center;
+
+    }
+    .white-button{
+        margin: 0.2rem 0 0.2rem 0.2rem !important;
+        width: 15rem;
+    }
+
+    #register{
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+}
+
+
+
+
+#filter{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    margin: 7rem 6% 0.1rem 6%;
+    font-family: 'Crimson Text', serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    text-decoration: none;
+}
+#filter li{
+    display: inline-block;
+}
+#filter li a {
+    display: inline-block;
+    color: #8B8B8B;
+    text-align: center;
+    padding-right:2.5rem;
+    text-decoration: none;
+}
+
+#filter li a:hover {
+    color: #8B8B8B;
+}
+#new-project{
+    float: right;
+}
+#new-project a{
+    padding-right: 0 !important;
+}
+#filter li a:focus{
+    color: black !important;
+}
+
+
+
+
+
+
+
+
+
+
+#main-content{
+    width: 88%;
+    margin: 0rem 6% 1rem 6%;
+    border: solid;
+    border-width: 1px;
+    border-color: black;
+
+
+    padding: .5vw;
+    font-size: 0;
+    display: -ms-flexbox;
+    -ms-flex-wrap: wrap;
+    -ms-flex-direction: column;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    display: -webkit-box;
+    display: flex;
+}
+
+
+#main-content .content-cell {
+    -webkit-box-flex: auto;
+    -ms-flex: auto;
+    flex: auto;
+    margin: 0.5rem;
+    position: relative;
+    overflow: hidden;
+    border: solid;
+    border-color: black;
+    border-width: 1px;
+    min-width: 18rem;
+    min-height: 18rem;
+    -webkit-transition: all 0.5s; /* Safari */
+    transition: all 0.5s;
+}
+
+
+@media screen and (max-width: 480px) {
+    #main-content .content-cell{
+        min-width: 15rem !important;
+        min-height: 15rem !important;
+    }
+}
+
+#main-content .content-cell:hover {
+    border-width: 3px;
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}
+
+#main-content .content-cell img {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-height: 100%;
+    min-width: 100%;
+    transform: translate(-50%, -50%);
+    -webkit-filter: grayscale(70%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(70%);
+    -webkit-transition:  0.5s; /* Safari */
+    transition: 0.5s;
+}
+
+.expanded-content-cell{
+    width: 100%;
+
+    -webkit-transition:  0.5s; /* Safari */
+    transition: 0.5s;
+}
+
+/*LARGE SCREENS*/
+@media screen and (min-width: 700px) {
+
+    .expanded-content-cell img{
+        min-width: 0 !important;
+        min-height: 0 !important;
+        width: 33% !important;
+        height:auto;
+        top:0 !important;
+        left:0 !important;
+        transform: translate(0%, 0%) !important;
+        -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+        filter: grayscale(0%);
+
+    }
+
+    #content-info{
+        position: relative;
+        margin: 0.5rem;
+        display: block;
+        width:64%;
+        float:right;
+
+    }
+
+    #content-left{
+        width: 65%;
+        display:inline-grid;
+    }
+    #content-right{
+        width: 35%;
+        display:inline-grid;
+        height: auto;
+    }
+    #pledges{
+        margin-top:3rem;
+        list-style-type: none;
+        text-decoration: none;
+    }
+
+    #pledges li{
+        background-color: #d7d7d7;
+        padding: 0.5rem 0.2rem 0.5rem 0.2rem;
+        margin: 0.5rem;
+        color:black;
+        text-align: center;
+
+    }
+    #description-text{
+        margin: 1.5rem 0 1rem 0;
+        width: 100%;
+        overflow-y: scroll;
+        height: 45vh;
+        resize: none;
+        border: none;
+
+    }
+}
+
+/*SMALL SCREENS*/
+@media screen and (max-width: 700px) {
+
+    .expanded-content-cell img{
+        min-width: 0 !important;
+        min-height: 0 !important;
+        width: auto !important;
+        height:33% !important;
+        top:0 !important;
+        left:0 !important;
+        transform: translate(0%, 0%) !important;
+        -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+        filter: grayscale(0%);
+
+    }
+
+    #content-info{
+        position: relative;
+        padding: 30% 0.5rem 0.5rem 0.5rem;
+        display: block;
+        width:100%;
+    }
+
+    #content-left{
+        width: 100%;
+        display:inline-grid;
+    }
+    #content-right{
+        width: 100%;
+        display:inline-grid;
+        height: auto;
+    }
+    #pledges{
+        margin-top:1rem;
+        list-style-type: none;
+        text-decoration: none;
+    }
+
+    #pledges li{
+        background-color: #d7d7d7;
+        padding: 0.5rem 0.2rem 0.5rem 0.2rem;
+        margin: 0.5rem;
+        color:black;
+        text-align: center;
+
+    }
+    #description-text{
+        margin: 1.5rem 0 1rem 0;
+        width: 100%;
+        height: 35vh;
+        resize: none;
+        border: none;
+
+    }
+    .project-title-text{
+        background-color: white;
+        padding: 0.1rem 0.6rem 0.1rem 0.6rem;
+        width: max-content;
+    }
+}
+.close-button{
+    position: absolute;
+    top:0.5rem;
+    left:0.5rem;
+    z-index: 5;
+    font-size: 2rem;
+}
+
+.close-button:hover{
+    color:#8B8B8B;
+}
+
+
+
+
+
+
+
+
+
+
+.button{
+    margin: 0.5rem;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    background-color: black;
+    color:white;
+    font-family: 'Crimson Text', serif;
+    text-align: center;
+}
+
+.button:hover{
+    background-color: #8B8B8B;
+}
+
+.button:active{
+    background-color: lightgray;
+}
+
+.normal-text{
+    font-size: 0.8rem;
+}
+
+
+.hidden{
+    display: none !important;
+}
