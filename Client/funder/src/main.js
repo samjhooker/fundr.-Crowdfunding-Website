@@ -38,8 +38,6 @@ import VueResource from 'vue-resource';
 Vue.use(VueResource);
 Vue.http.options.emulateJson = true;
 
-Window.user = null;
-
 new Vue({
     el: '#app',
     router: router,

@@ -36,9 +36,9 @@
           <input type="submit" class="white-button" value="register"  v-on:click="registerSubmit()"/>
 
         </div>
-        <form v-else>
-          <input type="submit" class="white-button" value="logout"/>
-        </form>
+        <div v-else>
+          <input type="submit" class="white-button" value="logout" v-on:click="logoutPressed()"/>
+        </div>
       </div>
     </div>
 
@@ -80,8 +80,9 @@
             }
         },
         mounted: function (){
-            if(Window.user){
+            if(localStorage.getItem('currentUserId')){
                 this.isLoggedIn=true
+                this.loginName = localStorage.getItem('currentUserName');
             }
         },
         methods: {
@@ -112,9 +113,8 @@
                 this.$http.post('http://localhost:4941/api/v2/users/login/?username='+username+'&password='+password, null)
                     .then(function(responce){
                         console.log("loggedIn");
-                        Window.user = {"id": responce.body.id, "token": responce.body.token};
                         this.isLoggedIn = true;
-                        this.getUserFromID(Window.user.id, Window.user.token);
+                        this.getUserFromID(responce.body.id, responce.body.token);
                     }, function(error){
                         console.log(error);
                         alert("error Login");
@@ -149,18 +149,26 @@
                 this.$http.get('http://localhost:4941/api/v2/users/'+id+'/', {headers: {'X-Authorization': token}})
                     .then(function(responce){
                         console.log("Account Creation Successful");
-                        Window.user = {
-                            "id": id,
-                            "token": token,
-                            "username": responce.body.username,
-                            "location": responce.body.location,
-                            "email": responce.body.email
-                        };
+                        localStorage.setItem('currentUserId', id);
+                        localStorage.setItem('currentUserToken', token);
+                        localStorage.setItem('currentUserName', responce.body.username);
+                        localStorage.setItem('currentUserEmail', responce.body.email);
+                        localStorage.setItem('currentUserLocation', responce.body.location);
+
                         this.loginName = responce.body.username;
+                        this.headerExpanded = false;
+
                     }, function(error){
                         console.log(error);
                         alert("error getting user details");
                     });
+            },
+            logoutPressed: function(){
+                localStorage.clear();
+                this.loginName = 'login';
+                this.isLoggedIn = false;
+                this.headerExpanded = false;
+
             }
         }
     }
