@@ -2,20 +2,35 @@
     <div  class="content-cell" v-bind:class="{'expanded-content-cell':isExtended}" v-on:click="contentCellClicked()">
         <div id="cell-title" v-show="!isExtended">
             <h2 class="white-project-title-text">{{ projectName }}</h2>
-            <div class="white-project-title-text normal-text">${{ amountRaised }} raised</div>
+            <div class="white-project-title-text normal-text">{{ projectSubtitle }}</div>
         </div>
         <img v-bind:src="imageUrl" alt>
         <i class="fa fa-times close-button" v-bind:class="{'hidden':!isExtended}" aria-hidden="true" id="close-button"></i>
         <div id="content-info" v-bind:class="{'hidden':!isExtended}">
             <div id="content-left">
                 <h2 id="project-name-text" class="project-title-text">{{ projectName }}</h2>
-                <div id="money-raised-text" class="project-title-text normal-text">${{ amountRaised }} raised</div>
-                <div id="amount-pledged-text" class="project-title-text normal-text"><strong>you pledged ${{ usersPledge }}</strong></div>
-                <textarea id="description-text" class="normal-text">{{ description }}</textarea>
+                <div id="money-raised-text" class="project-title-text normal-text">{{ backerText }}</div>
+                <div id="amount-pledged-text" class="project-title-text normal-text"><strong></strong></div>
+                <i class="loading-spinner fa fa-spinner fa-pulse fa-3x fa-fw" v-show="!isLoaded" aria-hidden="true"></i>
+                <div id="description-text" class="normal-text" v-show="isLoaded">
+                    {{ projectSubtitle }}<br><br>
+                    <div v-if="status == false">THIS PROJECT IS CLOSED<br></div>
+                    <div v-for="creator in creators"><strong>creator:</strong> {{creator.username}}<br></div>
+                    <div v-if="target != null"><strong>target:</strong> ${{target}}<br></div>
+                    <div v-if="creationDate != null"><strong>date:</strong> {{creationDate}}<br></div>
+                    <br>
+                    <strong>description</strong><br>{{ description }}
+                    <br><br>
+                    <h2>rewards</h2>
+                    <div v-for="reward in rewards">
+                        <strong>${{ reward.amount }}: </strong>{{ reward.description }}<br><br>
+                    </div>
+
+                </div>
             </div>
             <div id="content-right">
                 <div class="button" v-on:click="pledgeClicked()">pledge</div>
-
+                <i class="loading-spinner fa fa-spinner fa-pulse fa-3x fa-fw" v-show="!isLoaded" aria-hidden="true"></i>
                 <ul class="normal-text" id="pledges">
                     <li>Joe Smith pledges $230</li>
                     <li>Sam pledges $230</li>
@@ -29,21 +44,83 @@
     </div>
 </template>
 
+
 <script>
     export default {
         name: 'project',
-        props: ['projectName', 'amountRaised', 'usersPledge', 'imageUrl', 'description'],
+        props: ['projectName', 'projectSubtitle', 'imageUrl', 'projectId'],
         data () {
             return{
                 isExtended: false,
+                isLoaded : false,
+                description:null,
+                rewards: null,
+                backers:null,
+                creators:[],
+                creationDate:null,
+                rewards:[],
+                target:null,
+                status:null,
+                backerText:null,
             }
         },
         methods: {
             contentCellClicked: function(event){
                 this.isExtended = !this.isExtended;
+                if(!this.isLoaded){
+                    this.loadProject();
+                }
             },
             pledgeClicked : function(){
                 alert("pledge");
+            },
+            loadProject: function(){
+                this.$http.get('http://localhost:4941/api/v2/projects/'+this.projectId+'/')
+                    .then(function(responce){
+                        console.log("project pulled Successful");
+                        console.log(responce);
+                        this.description = responce.body.description;
+                        this.rewards = responce.body.rewards;
+                        this.creators= responce.body.creators;
+                        this.creationDate = this.timeSince(new Date(responce.body.creationDate)) + " ago";
+                        this.target = responce.body.target;
+                        this.status = responce.body.open;
+                        if(responce.body.progress){
+                            this.backerText = "$"+responce.body.progress.currentPledged + " pledged from " +responce.body.progress.numberOfBackers + " backers";
+                        }
+
+
+                        this.isLoaded = true;
+                    }, function(error){
+                        console.log(error);
+                        alert("error getting project details");
+                    });
+            },
+            timeSince: function(date){
+                var seconds = Math.floor((new Date() - date) / 1000);
+
+                var interval = Math.floor(seconds / 31536000);
+
+                if (interval > 1) {
+                    return interval + " years";
+                }
+                interval = Math.floor(seconds / 2592000);
+                if (interval > 1) {
+                    return interval + " months";
+                }
+                interval = Math.floor(seconds / 86400);
+                if (interval > 1) {
+                    return interval + " days";
+                }
+                interval = Math.floor(seconds / 3600);
+                if (interval > 1) {
+                    return interval + " hours";
+                }
+                interval = Math.floor(seconds / 60);
+                if (interval > 1) {
+                    return interval + " minutes";
+                }
+                return Math.floor(seconds) + " seconds";
             }
         }
 

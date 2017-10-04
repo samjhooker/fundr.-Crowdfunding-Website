@@ -10,6 +10,8 @@
     </div>
     <div id="header-content" v-bind:class="{'header-expanded':headerExpanded}">
       <div id="funder-about" class="normal-text">
+        "don't use straight black or boxes in interface design" - Professor Andy Cockburn
+        <br><br>
         funder was designed with the ideologies of brutal simplicity and monochromatic croudfunding.
         <br><br>
         it is as simple as black and white, an idea that governs both the website and it’s inherit design as well as the crowdfunding experience within the website. everything is designed with an intuitive purpose absent of manuals and documentation; everything just works.
@@ -44,9 +46,9 @@
 
 
     <ul id="filter">
-      <li focus><a href="/" >all projects</a></li>
-      <li><a href="/projects/pledged">backed</a></li>
-      <li><a href="/projects/created">created</a></li>
+      <li><a href="/" class="selected-filter">all projects</a></li>
+      <li><a href="/projects/pledged" v-show="isLoggedIn">backed</a></li>
+      <li><a href="/projects/created" v-show="isLoggedIn">created</a></li>
       <li id="new-project"><a href="/projects/create">create new project</a></li>
     </ul>
 
