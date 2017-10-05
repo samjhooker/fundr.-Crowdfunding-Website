@@ -9,7 +9,7 @@
         </div>
 
 
-        <project v-for="item in projectData" :projectSubtitle="item.subtitle" :projectId="item.id" :projectName="item.title" :imageUrl='PlaceholderImageUrl'></project>
+        <project v-for="item in projectData" :projectSubtitle="item.subtitle" :projectId="item.id" :projectName="item.title" :imageUrl='PlaceholderImageUrl' v-bind:id="item.id"></project>
     </div>
 </template>
 
@@ -58,12 +58,6 @@
                 });
         },
         methods: {
-            contentCellClicked: function(event){
-                this.isExtended = !this.isExtended;
-            },
-            pledgeClicked : function(){
-                alert("pledge");
-            }
         }
     }
 </script>

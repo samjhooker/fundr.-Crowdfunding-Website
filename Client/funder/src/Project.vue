@@ -1,5 +1,5 @@
 <template>
-    <div  class="content-cell" v-bind:class="{'expanded-content-cell':isExtended}" v-on:click="contentCellClicked()">
+    <div class="content-cell" v-bind:class="{'expanded-content-cell':isExtended}" v-on:click="contentCellClicked">
         <div id="cell-title" v-show="!isExtended">
             <h2 class="white-project-title-text">{{ projectName }}</h2>
             <div class="white-project-title-text normal-text">{{ projectSubtitle }}</div>
@@ -67,9 +67,18 @@
         methods: {
             contentCellClicked: function(event){
                 this.isExtended = !this.isExtended;
+//                window.scrollTo(event.target.id);
+                console.log("You see me scrollin, you hatin");
                 if(!this.isLoaded){
                     this.loadProject();
                 }
+                if(this.isExtended){
+                    $('html,body').animate({
+                            scrollTop: $("#"+this.projectId).offset().top -4*16},
+                        'slow');
+
+                }
+
             },
             pledgeClicked : function(){
                 alert("pledge");
@@ -95,6 +104,7 @@
                         console.log(error);
                         alert("error getting project details");
                     });
+
             },
             timeSince: function(date){
                 var seconds = Math.floor((new Date() - date) / 1000);
