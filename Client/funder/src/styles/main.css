@@ -29,6 +29,14 @@ input:focus{
     box-shadow: none;
     outline:none;
 }
+textarea:focus{
+    box-shadow: none;
+    outline:none;
+}
+button:focus{
+    box-shadow: none;
+    outline:none;
+}
 
 #header{
     width: 100%;
@@ -451,7 +459,78 @@ input:focus{
     width: max-content;
 }
 
+@-webkit-keyframes swing
+{
+    15%
+    {
+        -webkit-transform: translateX(5px);
+        transform: translateX(5px);
+    }
+    30%
+    {
+        -webkit-transform: translateX(-5px);
+        transform: translateX(-5px);
+    }
+    50%
+    {
+        -webkit-transform: translateX(3px);
+        transform: translateX(3px);
+    }
+    65%
+    {
+        -webkit-transform: translateX(-3px);
+        transform: translateX(-3px);
+    }
+    80%
+    {
+        -webkit-transform: translateX(2px);
+        transform: translateX(2px);
+    }
+    100%
+    {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+}
+@keyframes swing
+{
+    15%
+    {
+        -webkit-transform: translateX(5px);
+        transform: translateX(5px);
+    }
+    30%
+    {
+        -webkit-transform: translateX(-5px);
+        transform: translateX(-5px);
+    }
+    50%
+    {
+        -webkit-transform: translateX(3px);
+        transform: translateX(3px);
+    }
+    65%
+    {
+        -webkit-transform: translateX(-3px);
+        transform: translateX(-3px);
+    }
+    80%
+    {
+        -webkit-transform: translateX(2px);
+        transform: translateX(2px);
+    }
+    100%
+    {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+}
+.swing
+{
+    -webkit-animation: swing 0.8s;
+    animation: swing 0.8s;
 
+}
 
 
 
@@ -630,6 +709,13 @@ input:focus{
     margin:0.6%
 }
 
+.reward-cell{
+    padding: 0.5rem;
+    overflow: hidden;
+    -webkit-transition: all 0.3s; /* Safari */
+    transition: all 0.3s;
+}
+
 /*LARGE SCREENS*/
 @media screen and (min-width: 450px) {
     #insert-image{
@@ -648,7 +734,7 @@ input:focus{
         height:18rem;
     }
 
-    .reward{
+    .reward-cell{
         width: 18.8%;
         height: 10rem;
     }
@@ -670,9 +756,10 @@ input:focus{
     #insert-information{
         width:98.8%;
         height:18rem;
+
     }
 
-    .reward{
+    .reward-cell{
         width: 48.8%;
         height: 10rem;
     }
@@ -700,10 +787,127 @@ input:focus{
 
 #insert-image:hover{
     border-width: 2px;
-    background-color: #f3f3f3;
+    background-color: #eaeaea;
 }
 
 #rewards-banner{
     width:90%;
     padding-left:1rem;
+}
+
+#information-title{
+    padding: 0.8rem;
+}
+
+.info-input{
+    width: 66%;
+    padding: 2% 2% 2% 2%;
+    margin: 0 2% 2% 2%;
+    font-size: 1rem;
+    float:right;
+    -webkit-transition: all 0.3s; /* Safari */
+    transition: all 0.3s;
+}
+.info-input:hover{
+    background-color: #eaeaea;
+    border-width: 1.5px;
+}
+
+#target-info-input{
+    padding: 0;
+    margin:0;
+    border:none;
+    background-color: transparent;
+}
+
+#description-info-input{
+    height: 6rem;
+    font-size: 0.8rem;
+}
+
+.information-item-title{
+    padding: 2% 2% 2% 2%;
+    margin: 0 2% 2% 2%;
+    font-size: 0.8rem;
+    float:left;
+    width: 20%;
+}
+
+#reward-cell-title{
+    font-family: 'Crimson Text', serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+#reward-cell-content{
+    font-size: 0.8rem;
+}
+
+#reward-cell-close{
+    position: relative;
+    float: right;
+    font-size: 1.2rem;
+}
+
+#reward-cell-close:hover{
+    color: #8B8B8B;
+}
+
+.reward-input{
+    width:100%;
+    padding:0.5rem;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+    -webkit-transition: all 0.3s; /* Safari */
+    transition: all 0.3s;
+    display: flex;
+}
+
+
+.reward-input:hover{
+    background-color: #eaeaea;
+    border-width: 1.5px;
+}
+
+#reward-button{
+    float: right;
+    margin:0;
+    border:none;
+    padding:0 .5rem 0 .5rem;
+}
+
+#reward-amount-input{
+    position: relative;
+    width:100%;
+    padding: 0;
+    margin:0;
+    border:none;
+    background-color: transparent;
+}
+
+.grow:hover
+{
+    -webkit-transform: scale(1.03);
+    -ms-transform: scale(1.03);
+    transform: scale(1.03);
+}
+
+@keyframes createBox {
+    from {
+        transform: scale(0.3);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.appear
+{
+    animation: createBox .35s;
+}
+
+.disappear
+{
+    animation: createBox .35s;
+    animation-direction: reverse;
 }

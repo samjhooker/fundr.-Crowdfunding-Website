@@ -5,7 +5,7 @@
   <div id="app">
 
     <div id="header">
-      <h1 id="header-title">fundr</h1>
+      <h1 id="header-title">funder</h1>
       <div id="account-text" v-on:click="loginButtonClicked()">{{ loginName }}</div>
     </div>
     <div id="header-content" v-bind:class="{'header-expanded':headerExpanded}">
