@@ -112,7 +112,7 @@
             },
             loginUser: function (username, password) {
 
-                this.$http.post('http://localhost:4941/api/v2/users/login/?username='+username+'&password='+password, null)
+                this.$http.post('http://localhost:4941/api/v2/users/login/?username='+username+'&email='+username+'&password='+password, null)
                     .then(function(responce){
                         console.log("loggedIn");
                         this.isLoggedIn = true;
@@ -166,10 +166,20 @@
                     });
             },
             logoutPressed: function(){
-                localStorage.clear();
-                this.loginName = 'login';
-                this.isLoggedIn = false;
-                this.headerExpanded = false;
+
+                this.$http.post('http://localhost:4941/api/v2/users/logout', null, {headers: {'X-Authorization': localStorage.getItem('currentUserToken')}})
+                    .then(function(responce){
+                        console.log("logged out");
+                        localStorage.clear();
+                        this.loginName = 'login';
+                        this.isLoggedIn = false;
+                        this.headerExpanded = false;
+
+                    }, function(error){
+                        console.log(error);
+                        alert("error logout");
+                    });
+
 
             }
         }

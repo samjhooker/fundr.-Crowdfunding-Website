@@ -1,8 +1,8 @@
 <template>
     <div class="content-cell" v-bind:class="{'expanded-content-cell':isExtended}" v-on:click="contentCellClicked">
         <div id="cell-title" v-show="!isExtended">
-            <h2 class="white-project-title-text">{{ projectName }}</h2>
-            <div class="white-project-title-text normal-text">{{ projectSubtitle }}</div>
+            <h2 id="project-name-title" class="white-project-title-text">{{ projectName }}</h2>
+            <div id="project-subtitle-title" class="white-project-title-text normal-text">{{ projectSubtitle }}</div>
         </div>
         <img v-bind:src="imageUrl" alt>
         <i class="fa fa-times close-button" v-bind:class="{'hidden':!isExtended}" aria-hidden="true" id="close-button"></i>

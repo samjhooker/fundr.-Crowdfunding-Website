@@ -1,6 +1,10 @@
+/*#517fa0*/
+
 body{
     font-family: 'Open Sans', sans-serif;
     border-radius: 10px;
+    background-color: #f2f2f2;
+
 }
 
 
@@ -41,11 +45,13 @@ button:focus{
 #header{
     width: 100%;
     height: 4rem;
-    background-color: black;
+    background-color: #517fa0;
     position: fixed;
     left: 0;
     top:0;
     z-index:100;
+    opacity: 0.85;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
 #header-title{
@@ -74,7 +80,7 @@ button:focus{
     min-height:0vh;
     -webkit-transition: all 0.5s; /* Safari */
     transition: all 0.5s;
-    background-color: black;
+    background-color: #517fa0;
     overflow: hidden;
 }
 
@@ -86,7 +92,7 @@ button:focus{
     margin: 0.5rem;
     padding: 0.5rem;
     font-size: 1.2rem;
-    background-color: black;
+    background-color: #517fa0;
     color:white;
     font-family: 'Crimson Text', serif;
     text-align: center;
@@ -102,7 +108,7 @@ button:focus{
 .login-form{
     width: 15rem;
     background-color: white;
-    color: black;
+    color: #517fa0;
 
     padding: 0.3rem;
     margin: 0rem 0 0.3rem 0.2rem;
@@ -197,7 +203,7 @@ button:focus{
     margin: 0;
     padding: 0;
     overflow: hidden;
-    margin: 6rem 6% 0.1rem 6%;
+    margin: 6rem 6% 0rem 6%;
     font-family: 'Crimson Text', serif;
     font-weight: 700;
     font-size: 1.3rem;
@@ -205,21 +211,29 @@ button:focus{
 }
 
 .selected-filter{
-    color: black !important;
+    color: #517fa0 !important;
 }
 #filter li{
     display: inline-block;
+    /*background-color: #f2f2f2;*/
+    background-color: white;
+
+    padding: 0.5rem 2rem 0 2rem;
+    border:none;
+    border-color: #d9d9d9;
+    border-width: 0 0 0.5px 0;
+    border-radius: 0.4rem 0.4rem 0 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 #filter li a {
     display: inline-block;
     color: #a3a3a3;
     text-align: center;
-    padding-right:2.5rem;
     text-decoration: none;
 }
 
 #filter li a:hover {
-    color: #8B8B8B;
+    color: #517fa0;
 }
 #new-project{
     float: right;
@@ -228,7 +242,7 @@ button:focus{
     padding-right: 0 !important;
 }
 #filter li a:focus{
-    color: black !important;
+    color: #517fa0 !important;
 }
 
 
@@ -243,11 +257,8 @@ button:focus{
 #main-content{
     width: 88%;
     margin: 0rem 6% 1rem 6%;
-    border: solid;
-    border-width: 1px;
-    border-color: black;
-
-
+    border-radius: 0 0 0.4rem 0.4rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);    background-color: white;
     padding: .5vw;
     font-size: 0;
     display: -ms-flexbox;
@@ -257,6 +268,7 @@ button:focus{
     flex-flow: row wrap;
     display: -webkit-box;
     display: flex;
+
 }
 
 .not-flex{
@@ -270,13 +282,21 @@ button:focus{
     margin: 0.5rem;
     position: relative;
     overflow: hidden;
-    border: solid;
-    border-color: black;
-    border-width: 1px;
+    border-radius: 0.4rem;
     min-width: 18rem;
     min-height: 18rem;
     -webkit-transition: all 0.5s; /* Safari */
     transition: all 0.5s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    background-color: white;
+}
+
+.thin-border{
+    border:solid;
+    border-color: #eaeaea;
+    border-width: 1px;
+    background-color: white;
 }
 
 
@@ -288,9 +308,7 @@ button:focus{
 }
 
 #main-content .content-cell:hover {
-    border-width: 3px;
-    -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
-    filter: grayscale(50%);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 #main-content .content-cell img {
@@ -356,7 +374,7 @@ button:focus{
         background-color: #d7d7d7;
         padding: 0.5rem 0.2rem 0.5rem 0.2rem;
         margin: 0.5rem;
-        color:black;
+        color:#517fa0;
         text-align: center;
 
     }
@@ -413,7 +431,7 @@ button:focus{
         background-color: #d7d7d7;
         padding: 0.5rem 0.2rem 0.5rem 0.2rem;
         margin: 0.5rem;
-        color:black;
+        color:#517fa0;
         text-align: center;
 
     }
@@ -547,18 +565,24 @@ button:focus{
     margin: 0.5rem;
     padding: 0.5rem;
     font-size: 1.2rem;
-    background-color: black;
+    background-color: #517fa0;
     color:white;
     font-family: 'Crimson Text', serif;
     text-align: center;
+    border-radius: 0.4rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+
 }
 
 .button:hover{
     background-color: #8B8B8B;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 .button:active{
     background-color: lightgray;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 .normal-text{
@@ -576,6 +600,10 @@ button:focus{
     font-size: 2rem;
 }
 
+.search-icon{
+    color:#517fa0;
+
+}
 
 #search-filter-bar{
     width:100%;
@@ -588,9 +616,11 @@ button:focus{
 
 #search-filter-input:hover {
     width:100%;
-    /*background-color: black;*/
-    /*color: white;*/
-    border-width: 0 0 1px 0;
+    background-color: white !important;
+    border:solid !important;
+    border-color:#517fa0;
+    border-radius: 0 !important;
+    border-width: 0 0 1px 0 !important;
     font-size: 1.8rem;
     text-align: left;
     font-family: 'Crimson Text', serif;
@@ -600,14 +630,16 @@ button:focus{
 
 #search-filter-input{
     width:10rem;
+    border:solid;
+    border-width:1px;
+    border-color:#517fa0;
     height: 1.2rem;
-    border: solid;
-    border-width: 1px;
-    border-color: black;
+    border-radius: 0.4rem;
     font-size: 0.8rem;
     text-align: center;
     -webkit-transition: all 0.2s; /* Safari */
     transition: all 0.2s;
+    opacity: 0.8;
 }
 
 
@@ -667,7 +699,7 @@ button:focus{
     font-family: 'Crimson Text', serif;
     border:solid;
     border-width: 0 0 1px 0;
-    border-color: black;
+    border-color: #517fa0;
     -webkit-transition: all 0.5s; /* Safari */
     transition: all 0.5s;
 }
@@ -675,7 +707,7 @@ button:focus{
 .project-name-input-top{
     width: 100% !important;
     color:white;
-    background-color: black;
+    background-color: #517fa0;
     border:none;
     padding: 0 1rem 0 1rem;
     overflow: scroll;
@@ -706,9 +738,9 @@ button:focus{
 
 
 .black-border{
-    border:solid;
-    border-color: black;
-    border-width: 1px;
+    border-radius: 0.4rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
 .flex-item{
@@ -815,6 +847,7 @@ button:focus{
     float:right;
     -webkit-transition: all 0.3s; /* Safari */
     transition: all 0.3s;
+    border:none;
 }
 .info-input:hover{
     background-color: #eaeaea;
@@ -869,6 +902,7 @@ button:focus{
     -webkit-transition: all 0.3s; /* Safari */
     transition: all 0.3s;
     display: flex;
+    border:none;
 }
 
 
@@ -882,6 +916,8 @@ button:focus{
     margin:0;
     border:none;
     padding:0 .5rem 0 .5rem;
+    border-radius: 0.4rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 #reward-amount-input{
@@ -926,6 +962,9 @@ button:focus{
     width: 10rem;
     border: none;
     position: relative;
+    border-radius: 0.4rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
 }
 
 #submit-button-wrapper{

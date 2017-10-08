@@ -4,12 +4,13 @@
 
     <div id="main-content" >
 
+
         <div id="search-filter-bar">
             <input placeholder="search" id="search-filter-input">
         </div>
 
 
-        <project v-for="item in projectData" :projectSubtitle="item.subtitle" :projectId="item.id" :projectName="item.title" :imageUrl='PlaceholderImageUrl' v-bind:id="item.id"></project>
+        <project class="thin-border" v-for="item in projectData" :projectSubtitle="item.subtitle" :projectId="item.id" :projectName="item.title" :imageUrl='"http://localhost:4941/api/v2"+item.imageUri' v-bind:id="item.id"></project>
     </div>
 </template>
 
@@ -38,7 +39,7 @@
 //                    ]
 
                 projectData: [],
-                PlaceholderImageUrl: "http://www.euneighbours.eu/sites/default/files/2017-01/placeholder.png"
+                placeholderImageUrl: "http://www.euneighbours.eu/sites/default/files/2017-01/placeholder.png"
             }
         },
         mounted: function (){
