@@ -6,7 +6,8 @@
 
     <div id="header">
       <h1 id="header-title">funder</h1>
-      <div id="account-text" v-on:click="loginButtonClicked()">{{ loginName }}</div>
+      <div id="account-text" v-on:click="loginButtonClicked()"><i class="fa fa-user" aria-hidden="true"></i>
+        {{ loginName }}</div>
     </div>
     <div id="header-content" v-bind:class="{'header-expanded':headerExpanded}">
       <div id="funder-about" class="normal-text">
@@ -46,10 +47,11 @@
 
 
     <ul id="filter">
-      <li><a href="/" class="selected-filter">all projects</a></li>
-      <li><a href="/projects/pledged" v-show="isLoggedIn">backed</a></li>
-      <li><a href="/projects/created" v-show="isLoggedIn">created</a></li>
-      <li id="new-project"><a href="/projects/create">create new project</a></li>
+      <li><a href="/" class="selected-filter"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+      <li><a href="/projects">all projects</a></li>
+      <li v-show="isLoggedIn"><a href="/projects/pledged" >backed</a></li>
+      <li v-show="isLoggedIn"><a href="/projects/created">created</a></li>
+      <li id="new-project"><a href="/projects/create"><i class="fa fa-plus-circle" aria-hidden="true"></i>  start a project</a></li>
     </ul>
 
     <router-view></router-view>

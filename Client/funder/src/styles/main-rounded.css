@@ -11,18 +11,18 @@ body{
 h1{
     font-family: 'Crimson Text', serif;
     font-weight: 700;
-    font-size: 2rem;
+    font-size: 1.6rem;
 }
 h2{
     font-family: 'Crimson Text', serif;
     font-weight: 700;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     margin:0;
 }
 h3{
     font-family: 'Crimson Text', serif;
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin:0.3rem;
     color: white;
 
@@ -50,8 +50,8 @@ button:focus{
     left: 0;
     top:0;
     z-index:100;
-    opacity: 0.85;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    /*opacity: 0.85;*/
+    /*box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);*/
 }
 
 #header-title{
@@ -203,10 +203,10 @@ button:focus{
     margin: 0;
     padding: 0;
     overflow: hidden;
-    margin: 6rem 6% 0rem 6%;
+    margin: 5rem 6% 0rem 6%;
     font-family: 'Crimson Text', serif;
     font-weight: 700;
-    font-size: 1.3rem;
+    font-size: 1rem;
     text-decoration: none;
 }
 
@@ -971,4 +971,43 @@ button:focus{
     width: 100%;
     height: 3rem;
     display: inline-table;
+}
+
+
+
+
+
+
+
+
+
+
+#all-projects-wrapper{
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin:2rem;
+
+}
+
+#all-projects-button{
+    border:0;
+    padding:0.5rem 2rem 0.5rem 2rem;
+}
+
+
+
+#home-content{
+    width:100%;
+    height:60vh;
+    border-radius: 0.4rem;
+    background-color: white;
+    margin:0.5rem 0.5rem 2rem 0.5rem;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    transition: all 1s;
+    background-size: cover;
+    background-position: center;
+    background-image: url('http://www.livingwellspendingless.com/wp-content/uploads/2016/11/6456393_m2.jpg');
 }

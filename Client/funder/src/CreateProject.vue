@@ -194,7 +194,7 @@
                     formData.append('image', this.image);
 
                     var type = this.file.type;
-
+                    var type = this.file.type;
 
                     this.$http.put('http://localhost:4941/api/v2/projects/'+projectId+'/image/', this.image,
                         {headers: {'X-Authorization': localStorage.getItem('currentUserToken'), 'content-type': type}})
