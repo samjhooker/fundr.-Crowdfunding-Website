@@ -4,18 +4,16 @@
 
     <div id="main-content" >
 
-
         <div id="home-content">
             <div class="video-background">
                 <div class="video-foreground">
-                    <iframe src="https://www.youtube.com/embed/HOz34_2Z-mw?controls=0&showinfo=0&mute=1&rel=0&autoplay=1&loop=1" frameborder="0" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/HOz34_2Z-mw?controls=0&showinfo=0&mute=1&rel=0&autoplay=1&loop=1&playlist=HOz34_2Z-mw" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             <div id="home-typewriter">fund<div id="home-typewriter-text">:  my life</div></div>
             <div id="home-content-content">
-                <!--<button class="button home-content-buttons" href="/projects">see all projects</button>-->
-                <!--<br/>-->
-                <!--<button class="home-content-buttons button" href="/projects/create">start a project</button>-->
+                <button class="button home-content-buttons" href="/projects">see all projects</button>
+                <button class="home-content-buttons button" href="/projects/create">start a project</button>
 
             </div>
         </div>
@@ -69,13 +67,13 @@
             });
 
 
-            setInterval(this.changePicture, 4500);
+//            setInterval(this.changePicture, 4500);
             this.$http.get('http://localhost:4941/api/v2/projects')
                 .then(function(responce){
                     console.log("projects recieved");
                     console.log(responce);
                     for(var index in responce.body){
-                        if(index > 4)break;
+                        if(index > 5)break;
                         if(responce.body[index].open){
                             this.projectData.push(responce.body[index]);
                         }
@@ -86,14 +84,7 @@
                 });
         },
         methods: {
-            changePicture: function(){
-                $("#home-content").css('background-image', "url("+ this.homePictures[this.pictureCount%this.homePictures.length]+")");
-                this.pictureCount ++;
-            }
-            ,changeText: function(){
-                $("#home-typewriter-text").html(this.homeText[this.textCount%this.homeText.length]);
-                this.textCount ++;
-            }
+
         }
     }
 </script>

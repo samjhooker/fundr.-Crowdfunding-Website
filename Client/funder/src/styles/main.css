@@ -711,7 +711,7 @@ button:focus{
     border-width: 1px;
 }
 
-.flex-item{
+.new-project-cell{
     /*flex:auto;*/
     float:left;
     margin:0.6%

@@ -1,15 +1,18 @@
 <template>
     <div class="create-project-content" id="main-content">
 
+        <div id="top-filler" v-bind:class="{'top-filler-hidden':isTop}"></div>
 
-        <div class="center" v-bind:class="{'create-project-header-top':isTop}" id="create-project-header">
+        <h2 id="login-message" v-if="!isLoggedIn"> You must be logged in to create a project</h2>
+
+        <div v-bind:class="{'create-project-header-top':isTop}" id="create-project-header" v-else>
             <input id="project-name-input" v-bind:class="{'project-name-input-top':isTop}" v-model="projectName" placeholder="project name"/><br>
             <button id="project-name-button" v-show="!isTop" class="button" v-on:click="projectNameSubmitButtonPressed()">next</button>
         </div>
 
         <div v-bind:class="{'create-project-content-top':isTop}" id="create-project-content">
 
-            <div class="black-border flex-item thin-border" id="insert-information">
+            <div class="black-border new-project-cell large-project-cell thin-border" id="insert-information">
                 <h2 id="information-title">information</h2>
                 <div class="information-item-title">subtitle</div>
                 <input type="text" v-model="subtitle" maxlength="50" class="black-border info-input" id="subtitle-info-input" placeholder="an awesome project">
@@ -20,7 +23,7 @@
 
             </div>
 
-            <div class="black-border flex-item thin-border" id="insert-image" v-on:click="insertImageButtonPressed">
+            <div class="black-border new-project-cell large-project-cell  thin-border" id="insert-image" v-on:click="insertImageButtonPressed">
                 <img id="image-upload" class="" src="https://i.imgur.com/WqljCrr.png"/>
             </div>
 
@@ -31,13 +34,13 @@
                 <h2>rewards</h2>
             </div>
 
-            <div v-for="reward in rewards" class="grow appear reward-cell black-border flex-item thin-border">
+            <div v-for="reward in rewards" class="grow appear reward-cell black-border new-project-cell thin-border">
                 <i id="reward-cell-close" class="fa fa-times" aria-hidden="true" v-on:click="closeRewardButtonPressed(reward)"></i>
                 <div id="reward-cell-title">${{ reward.amount }}</div>
                 <div id="reward-cell-content">{{ reward.description }}</div>
             </div>
 
-            <div class="reward-cell black-border flex-item thin-border">
+            <div class="reward-cell black-border new-project-cell thin-border">
                 <!--<input v-model="rewardAmount"  type="text" maxlength="15" class="black-border reward-input" id="reward-amount-input" placeholder="reward amount"/>-->
                 <span class="black-border reward-input">$<input v-model="rewardAmount" maxlength="15" type="text" name="currency" id="reward-amount-input" placeholder="500"></span>
 
@@ -66,6 +69,7 @@
         name: 'create-project',
         data () {
             return{
+                isLoggedIn:false,
                 isTop:false,
                 projectName:"",
                 imageUploaded:false,
@@ -83,15 +87,22 @@
             }
         },
         mounted: function (){
-
+            if(localStorage.getItem("currentUserId")){
+                this.isLoggedIn = true;
+            }
         },
         methods: {
             projectNameSubmitButtonPressed: function(){
-                if(this.projectName != ""){
-                    this.isTop = true;
+                if(localStorage.getItem("currentUserId")){
+                    if(this.projectName != ""){
+                        this.isTop = true;
+                    }else{
+                        alert("project name required");
+                    }
                 }else{
-                    alert("project name required");
+                    this.isLoggedIn = false;
                 }
+
             },
             insertImageButtonPressed : function () {
                 $("#files").click();
