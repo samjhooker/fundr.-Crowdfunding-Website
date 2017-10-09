@@ -81,9 +81,7 @@
                 subtitle:'',
                 target:'',
                 numbericalTarget:null,
-                description:''
-
-
+                description:'',
             }
         },
         mounted: function (){
@@ -124,6 +122,7 @@
                     };
                 })(this.file);
                 reader.readAsDataURL(this.file);
+
 
             },
             rewardButtonClicked: function () {
@@ -197,18 +196,23 @@
 
                 if(this.file){
 
+                    var type = this.file.type;
+
+                    var bin = this.image.substring(this.image.indexOf(",") + 1);
+
+
                     var data={
-                        'image':this.file
+                        'image':bin,
+                        'type': type
                     }
+                    console.log(bin);
 
                     var formData = new FormData();
                     formData.append('image', this.image);
 
-                    var type = this.file.type;
-                    var type = this.file.type;
 
-                    this.$http.put('http://localhost:4941/api/v2/projects/'+projectId+'/image/', this.image,
-                        {headers: {'X-Authorization': localStorage.getItem('currentUserToken'), 'content-type': type}})
+                    this.$http.put('http://localhost:4941/api/v2/projects/'+projectId+'/image/', data,
+                        {headers:{'X-Authorization': localStorage.getItem('currentUserToken'), 'Content-Type': type}})
                         .then(function(responce){
                             console.log("Image Posted Successfully");
                         }, function(error){
