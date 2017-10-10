@@ -4,7 +4,8 @@
             <h2 id="project-name-title" class="white-project-title-text">{{ projectName }}</h2>
             <div id="project-subtitle-title" class="white-project-title-text normal-text">{{ projectSubtitle }}</div>
         </div>
-        <img v-bind:src="imageUrl" alt>
+        <!--<img v-bind:src="imageUrl" alt>-->
+        <div v-bind:id="'image-view-'+projectId" class="image-view"></div>
         <i class="fa fa-times close-button" v-bind:class="{'hidden':!isExtended}" aria-hidden="true" id="close-button" v-on:click="contentCellClosed"></i>
         <div id="content-info" v-bind:class="{'hidden':!isExtended}">
             <div id="content-left">
@@ -74,6 +75,9 @@
                 status:null,
                 backerText:null,
             }
+        },
+        mounted: function(){
+            $('#image-view-'+this.projectId).css("background-image", "url('"+this.imageUrl+"')")
         },
         methods: {
             contentCellClicked: function(event){

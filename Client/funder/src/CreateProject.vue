@@ -211,7 +211,7 @@
                     formData.append('image', this.image);
 
 
-                    this.$http.put('http://localhost:4941/api/v2/projects/'+projectId+'/image/', data,
+                    this.$http.put('http://localhost:4941/api/v2/projects/'+projectId+'/image/', this.file,
                         {headers:{'X-Authorization': localStorage.getItem('currentUserToken'), 'Content-Type': type}})
                         .then(function(responce){
                             console.log("Image Posted Successfully");

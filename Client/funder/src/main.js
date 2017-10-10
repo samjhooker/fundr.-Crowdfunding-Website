@@ -49,7 +49,7 @@ const router = new VueRouter({
 
 import VueResource from 'vue-resource';
 Vue.use(VueResource);
-Vue.http.options.emulateJson = true;
+// Vue.http.options.emulateJson = true;
 
 new Vue({
     el: '#app',
