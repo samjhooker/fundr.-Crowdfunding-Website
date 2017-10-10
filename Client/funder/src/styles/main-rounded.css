@@ -9,20 +9,20 @@ body{
 
 
 h1{
-    font-family: 'Crimson Text', serif;
-    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
     font-size: 1.6rem;
 }
 h2{
-    font-family: 'Crimson Text', serif;
-    font-weight: 700;
-    font-size: 1.2rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 1.1rem;
     margin:0;
 }
 h3{
     font-family: 'Open Sans', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
+    font-weight: 400;
+    font-size: 0.85rem;
     margin:0.3rem;
     color: white;
 
@@ -30,9 +30,11 @@ h3{
 }
 
 input:focus{
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    box-shadow: none;
     outline:none;
+    background-color: #eaeaea;
 }
+
 textarea:focus{
     box-shadow: none;
     outline:none;
@@ -94,7 +96,7 @@ button:focus{
     font-size: 1.2rem;
     background-color: #517fa0;
     color:white;
-    font-family: 'Crimson Text', serif;
+    font-family: 'Montserrat', sans-serif;
     text-align: center;
     border:solid;
     border-width: 1px;
@@ -204,8 +206,8 @@ button:focus{
     padding: 0;
     overflow: hidden;
     margin: 5rem 6% 0rem 6%;
-    font-family: 'Crimson Text', serif;
-    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
     font-size: 1rem;
     text-decoration: none;
 }
@@ -332,8 +334,8 @@ button:focus{
     width: 100% !important;
     min-width: 100% !important;
 
-    -webkit-transition:  0.3s; /* Safari */
-    transition: 0.3s;
+    /*-webkit-transition:  0.3s; !* Safari *!*/
+    /*transition: 0.3s;*/
 }
 
 /*HUGE SCREENS*/
@@ -514,10 +516,13 @@ button:focus{
 }
 
 
+
 .fa-remove, .fa-close, .fa-times {
     content: "\f00d";
-    color: white !important;
-    text-shadow: black 0.1rem 0.1rem 0.1rem;
+    color: black !important;
+    text-shadow: none;
+    text-shadow: white 0.1rem 0.1rem 0.1rem;
+
 }
 
 .fa-remove:hover, .fa-close:hover, .fa-times:hover {
@@ -684,7 +689,7 @@ button:focus{
     font-size: 1.2rem;
     background-color: #517fa0;
     color:white;
-    font-family: 'Crimson Text', serif;
+    font-family: 'Montserrat', sans-serif;
     text-align: center;
     border-radius: 0.4rem;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -740,7 +745,7 @@ button:focus{
     border-width: 0 0 1px 0 !important;
     font-size: 1.8rem;
     text-align: left;
-    font-family: 'Crimson Text', serif;
+    font-family: 'Montserrat', sans-serif;
     height:3rem;
 
 }
@@ -827,7 +832,7 @@ button:focus{
 #project-name-input{
     width: 50%;
     font-size: 2rem;
-    font-family: 'Crimson Text', serif;
+    font-family: 'Montserrat', sans-serif;
     border:solid;
     border-width: 0 0 1px 0;
     border-color: #517fa0;
@@ -1004,17 +1009,29 @@ button:focus{
     font-size: 0.8rem;
 }
 
+/*.information-item-title{*/
+    /*padding: 2% 2% 2% 2%;*/
+    /*margin: 0 2% 2% 2%;*/
+    /*font-size: 0.8rem;*/
+    /*float:left;*/
+    /*width: 20%;*/
+    /*position: absolute;*/
+/*}*/
+
 .information-item-title{
-    padding: 2% 2% 2% 2%;
-    margin: 0 2% 2% 2%;
-    font-size: 0.8rem;
-    float:left;
-    width: 20%;
+    float: right;
+    border-radius: 0.4rem 0 0 0.4rem;
+    height: 2.7rem;
+    border:none;
+    background-color: white;
+    border:none;
 }
 
+
+
 #reward-cell-title{
-    font-family: 'Crimson Text', serif;
-    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
     font-size: 0.9rem;
 }
 
@@ -1163,14 +1180,16 @@ button:focus{
     color:white;
     position: relative;
 
-    font-family: 'Crimson Text', serif;
+    font-family: 'Montserrat', sans-serif;
     font-size:2.5rem;
-    font-weight: 700;
+    font-weight: 400;
 }
 #home-typewriter-text{
 font-family: 'Open Sans', sans-serif !important;
-    font-size:1.8rem !important;
+    font-size:2.4rem !important;
     font-weight: normal;
+    color:white;
+    opacity: 0.8;
 
 }
 
