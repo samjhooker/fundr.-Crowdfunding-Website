@@ -30,7 +30,7 @@ h3{
 }
 
 input:focus{
-    box-shadow: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     outline:none;
 }
 textarea:focus{
@@ -885,9 +885,6 @@ button:focus{
     .large-project-cell {
         min-height: 22rem;
     }
-    /*.reward-cell{*/
-        /*min-height:10rem;*/
-    /*}*/
 }
 
 
@@ -984,7 +981,7 @@ button:focus{
 
 .info-input{
     width: 66%;
-    padding: 2% 2% 2% 2%;
+    padding: 0.6rem 2% 0.6rem 2%;
     margin: 0 2% 2% 2%;
     font-size: 1rem;
     float:right;
@@ -1210,4 +1207,206 @@ font-family: 'Open Sans', sans-serif !important;
 }
 @media (max-aspect-ratio: 16/9) {
     .video-foreground { width: 300%; left: -100%; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*PAYMENT SCREEN*/
+
+
+ol.progtrckr {
+    margin: 2rem;
+    padding: 0;
+    list-style-type: none;
+}
+
+ol.progtrckr li {
+    display: inline-block;
+    text-align: center;
+    line-height: 3em;
+}
+
+ol.progtrckr[data-progtrckr-steps="2"] li { width: 49%; }
+ol.progtrckr[data-progtrckr-steps="3"] li { width: 32.5%; }
+ol.progtrckr[data-progtrckr-steps="4"] li { width: 24%; }
+ol.progtrckr[data-progtrckr-steps="5"] li { width: 19%; }
+ol.progtrckr[data-progtrckr-steps="6"] li { width: 16%; }
+ol.progtrckr[data-progtrckr-steps="7"] li { width: 14%; }
+ol.progtrckr[data-progtrckr-steps="8"] li { width: 12%; }
+ol.progtrckr[data-progtrckr-steps="9"] li { width: 11%; }
+
+ol.progtrckr li.progtrckr-done {
+    color: black;
+    border-bottom: 4px solid #659cc3;
+
+}
+ol.progtrckr li.progtrckr-todo {
+    color: silver;
+    border-bottom: 4px solid silver;
+}
+
+ol.progtrckr li:after {
+    content: "\00a0\00a0";
+}
+ol.progtrckr li:before {
+    position: relative;
+    bottom: -2.5em;
+    float: left;
+    left: 50%;
+    line-height: 1em;
+}
+ol.progtrckr li.progtrckr-done:before {
+    content: "\2713";
+    color: white;
+    background-color: #659cc3;
+    height: 1.2em;
+    width: 1.2em;
+    line-height: 1.2em;
+    border: none;
+    border-radius: 1.2em;
+}
+ol.progtrckr li.progtrckr-todo:before {
+    content: "\039F";
+    color: silver;
+    background-color: white;
+    font-size: 1.5em;
+    bottom: -1.6em;
+}
+
+
+
+
+
+#pledge-content{
+    width: 88%;
+    margin: 0rem 6% 1rem 6%;
+    border-radius: 0 0 0.4rem 0.4rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);    background-color: white;
+    padding: .5vw;
+}
+
+#pledge-content-1{
+    height: 60vh;
+    position: relative;
+}
+
+#pledge-image{
+    width:97%;
+    margin:1.5%;
+    border-radius: 0.4rem 0.4rem 0 0;
+    height:98%;
+    background-size: cover;
+    background-position: center;
+    background-image: url('https://static.pexels.com/photos/296881/pexels-photo-296881.jpeg');
+}
+
+#pledge-text{
+    background-color: white;
+    margin-left: 20%;
+    margin-right: 20%;
+    text-align: center;
+    color: black;
+    font-size: 1.8rem;
+    border-radius: 0.4rem;
+    padding:0.5rem;
+}
+
+#pledge-text input{
+    border:none;
+    width:5rem;
+    border:solid;
+    border-width: 0 0 1px 0;
+    padding:0;
+
+}
+
+#pledge-button-wrapper{
+    position: absolute;
+    width:100%;
+    height:4rem;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color: white;
+
+}
+
+#pledge-next-button{
+    float:right;
+}
+
+#pledge-back-button{
+}
+
+
+
+
+
+#pledge-content-2{
+    min-height: 60vh;
+    position: relative;
+    display: flex !important;
+    flex-flow: column !important;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+    overflow: hidden;
+}
+#insert-payment{
+    width:50%;
+    max-width: 30rem;
+}
+#payment-title-wrapper{
+    width:100%;
+    background-color: #f2f2f2;
+    border-radius: 0.4rem 0.4rem 0 0;
+    margin-bottom: 1rem;
+}
+
+#payment-title{
+    padding: 0.8rem;
+    display: inline-block;
+}
+
+.payment-item-title{
+    padding: 2% 2% 2% 2%;
+    margin: 0 2% 2% 2%;
+    font-size: 0.8rem;
+    float:left;
+    width: 25%;
+}
+
+.payment-card-input{
+    width: 56% !important;
+    margin-left: 0 !important;
+    border-radius: 0 0.4rem 0.4rem 0;
+}
+
+.card-icon{
+    width: 10%;
+    float: right;
+    border-radius: 0.4rem 0 0 0.4rem;
+    height: 2.7rem;
+    border:none;
+}
+
+#anonymous-checkbox{
+    padding:0.5rem;
+    width:100%;
+    font-family: "Open Sans";
+    font-size: 0.8rem;
+    text-align: center;
 }

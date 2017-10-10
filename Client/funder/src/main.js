@@ -6,6 +6,8 @@ import Home from './Home.vue'
 import PledgedProjects from './PledgedProjects.vue'
 import CreatedProjects from './CreatedProjects.vue'
 import CreateProject from './CreateProject.vue'
+import Pledge from './Pledge.vue'
+
 
 
 import VueRouter from 'vue-router';
@@ -24,6 +26,11 @@ const routes = [
     {
         path:"/projects/pledged",
         component: PledgedProjects
+    },
+    {
+        path:"/pledge/:id",
+        component: Pledge,
+        props:true
     },
     {
         path:"/projects/created",
