@@ -378,14 +378,27 @@ button:focus{
         margin-top:3rem;
         list-style-type: none;
         text-decoration: none;
+        padding-left:0;
     }
 
     #pledges li{
-        background-color: #d7d7d7;
+        background-color: #ffffff;
         padding: 0.5rem 0.2rem 0.5rem 0.2rem;
-        margin: 0.5rem;
-        color:#517fa0;
+        margin: 0.6rem;
+        color: #000000;
         text-align: center;
+        border: solid;
+        border-width: 1px;
+        border-radius: 0.4rem;
+        border-color: #eaeaea;
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        -ms-transition: all 0.3s;
+        -o-transition: all 0.3s;
+        transition: all 0.3s;
 
     }
     #description-text{
@@ -492,6 +505,94 @@ button:focus{
     margin-right: 1.8rem;
 }
 
+#user-content-wrapper{
+    width: 96%;
+    margin:2%;
+    background-color: #f2f2f2;
+    border-radius: 0.4rem;
+    display: inline-block;
+    position: relative;
+
+}
+
+
+.fa-remove, .fa-close, .fa-times {
+    content: "\f00d";
+    color: white !important;
+    text-shadow: black 0.1rem 0.1rem 0.1rem;
+}
+
+.fa-remove:hover, .fa-close:hover, .fa-times:hover {
+    content: "\f00d";
+    color: #8B8B8B !important;
+    text-shadow: black 0.1rem 0.1rem 0.1rem;
+}
+
+
+#user-content-wrapper h2{
+    margin:0.5rem;
+}
+
+#user-content{
+    position: relative;
+    width:100%;
+    height:18vh;
+    display: flex;
+}
+
+#update-image{
+    width: 55%;
+    margin: 0.5rem;
+    position: relative;
+    background-color: white;
+    border-radius: 0.4rem;
+    top:-0;
+    -webkit-transition: all 0.3s; /* Safari */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s;
+
+
+}
+#update-image:hover{
+    box-shadow: 0 14px 28px rgba(0,0,0,0.18), 0 10px 10px rgba(0,0,0,0.15);
+    position: relative;
+    top: -3px;
+    background-color: #fbfbfb;
+}
+
+#update-image-label{
+    width:80%;
+    height:80%;
+    background-image: url('https://i.imgur.com/TvK7tGz.png');
+    background-size:     contain;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center center;
+    margin-left: 10%;
+}
+
+#close-project-button{
+    background-color: #a3000b;
+    color:white;
+    font-family:"Open Sans";
+    font-weight: 400;
+    font-size: 0.6rem;
+    position:absolute !important;
+    right:0.5rem;
+    bottom:0.5rem;
+    padding:0.5rem;
+    border:none;
+
+}
+
+
+
+
+
+
+
+
+
+
 @-webkit-keyframes swing
 {
     15%
@@ -566,6 +667,14 @@ button:focus{
     animation: swing 0.8s;
 
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -965,9 +1074,9 @@ button:focus{
 
 .grow:hover
 {
-    -webkit-transform: scale(1.03);
-    -ms-transform: scale(1.03);
-    transform: scale(1.03);
+    -webkit-transform: scale(1.03) !important;
+    -ms-transform: scale(1.03) !important;
+    transform: scale(1.03) !important;
 }
 
 @keyframes createBox {
@@ -1008,7 +1117,9 @@ button:focus{
 }
 
 
-
+.box-shadow{
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
 
 
 

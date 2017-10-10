@@ -5,7 +5,7 @@
             <div id="project-subtitle-title" class="white-project-title-text normal-text">{{ projectSubtitle }}</div>
         </div>
         <img v-bind:src="imageUrl" alt>
-        <i class="fa fa-times close-button" v-bind:class="{'hidden':!isExtended}" aria-hidden="true" id="close-button"></i>
+        <i class="fa fa-times close-button" v-bind:class="{'hidden':!isExtended}" aria-hidden="true" id="close-button" v-on:click="contentCellClosed"></i>
         <div id="content-info" v-bind:class="{'hidden':!isExtended}">
             <div id="content-left">
                 <h2 id="project-name-text" class="project-title-text">{{ projectName }}</h2>
@@ -32,15 +32,26 @@
                 <div class="button" v-on:click="pledgeClicked()">pledge</div>
                 <i class="loading-spinner fa fa-spinner fa-pulse fa-3x fa-fw" v-show="!isLoaded" aria-hidden="true"></i>
                 <ul class="normal-text" id="pledges">
-                    <li>Joe Smith pledges $230</li>
-                    <li>Sam pledges $230</li>
-                    <li>Anonymous pledges $134</li>
-                    <li>Bob Jones pledges $230</li>
-                    <li>Sir Pledgealot pledges $230</li>
+                    <li class="box-shadow grow">Joe Smith pledges $230</li>
+                    <li class="box-shadow grow">Sam pledges $230</li>
+                    <li class="box-shadow grow">Anonymous pledges $134</li>
+                    <li class="box-shadow grow">Bob Jones pledges $230</li>
+                    <li class="box-shadow grow">Sir Pledgealot pledges $230</li>
                 </ul>
 
             </div>
         </div>
+
+        <div id="user-content-wrapper" class="box-shadow" v-show="isExtended">
+            <h2>my project</h2>
+            <div id="user-content">
+                <div id="update-image" class="box-shadow">
+                    <div class="center" id="update-image-label"></div>
+                </div>
+                <button class="button" id="close-project-button">close project.<br/>this cannot be undone</button>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -66,9 +77,8 @@
         },
         methods: {
             contentCellClicked: function(event){
+                if(this.isExtended)return; // dont allow click to return
                 this.isExtended = !this.isExtended;
-//                window.scrollTo(event.target.id);
-                console.log("You see me scrollin, you hatin");
                 if(!this.isLoaded){
                     this.loadProject();
                 }
@@ -79,6 +89,11 @@
 
                 }
 
+            },
+            contentCellClosed: function(event){
+                if(!this.isExtended)return; // dont allow click to return
+                this.isExtended = !this.isExtended;
+                event.stopPropagation();
             },
             pledgeClicked : function(){
                 alert("pledge");
