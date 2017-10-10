@@ -9,16 +9,19 @@
             <li class="progtrckr-todo">done</li>
         </ol>
 
-        <div id="pledge-content-1" class="hidden">
+
+
+
+        <div id="pledge-content-1" v-bind:class="{'pledge-content-1-minimised': !displayInitial}">
 
             <div id="pledge-image" class="box-shadow">
 
-                <div id="pledge-text" class="center box-shadow">I would like to pledge $<input placeholder=""><br/> to {{ title }}</div>
+                <div id="pledge-text" class="center box-shadow">I would like to pledge $<input id="pledge-amount-input" placeholder="" v-model="pledgeAmount"><br/> to {{ title }}</div>
 
             </div>
-            <div id="pledge-button-wrapper" class="">
-                <button id="pledge-back-button" class="home-content-buttons button"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>         cancel</button>
-                <button id="pledge-next-button" class="home-content-buttons button">next        <i class="fa fa-chevron-circle-right" aria-hidden="true"></i></button>
+            <div class="pledge-button-wrapper">
+                <button class="pledge-back-button home-content-buttons button"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>         cancel</button>
+                <button class="pledge-next-button home-content-buttons button" v-on:click="nextButtonClicked">next        <i class="fa fa-chevron-circle-right" aria-hidden="true"></i></button>
 
 
             </div>
@@ -26,7 +29,7 @@
 
 
 
-        <div id="pledge-content-2">
+        <div id="pledge-content-2" v-bind:class="{'pledge-content-2-expanded': displayPayment}">
 
 
             <div class="black-border new-project-cell thin-border" id="insert-payment">
@@ -36,23 +39,23 @@
                 </div>
 
                 <div class="payment-item-title">card number</div>
-                <input type="text" v-model="subtitle" maxlength="16" class="black-border info-input payment-card-input" id="" placeholder="xxxxxxxxxxxxxxxx">
-                <span id="" class="card-icon box-shadow input-group-addon"><i class="fa fa-credit-card"></i></span>
+                <input type="text" maxlength="16" class="black-border info-input payment-card-input" id="" placeholder="xxxxxxxxxxxxxxxx">
+                <span  class="card-icon box-shadow input-group-addon"><i class="fa fa-credit-card"></i></span>
 
                 <div class="payment-item-title">expiry date</div>
-                <input type="text" v-model="subtitle" maxlength="16" class="black-border info-input payment-card-input" id="" placeholder="mm/yy">
-                <span id="" class=" card-icon box-shadow input-group-addon"><i class="fa fa-calendar-o"></i></span>
+                <input type="text" maxlength="16" class="black-border info-input payment-card-input" id="" placeholder="mm/yy">
+                <span  class="card-icon box-shadow input-group-addon"><i class="fa fa-calendar-o"></i></span>
 
                 <div class="payment-item-title">cvc</div>
-                <input type="text" v-model="subtitle" maxlength="16" class="black-border info-input payment-card-input" id="" placeholder="123">
-                <span id="" class=" card-icon box-shadow input-group-addon"><i class="fa fa-university"></i></span>
+                <input type="text" maxlength="16" class="black-border info-input payment-card-input" id="" placeholder="123">
+                <span class="card-icon box-shadow input-group-addon"><i class="fa fa-university"></i></span>
 
                 <label id="anonymous-checkbox"><input type="checkbox" value="">   pledge anonymously</label>
 
 
-                <div id="pledge-button-wrapper" class="">
-                    <button id="pledge-back-button" class="home-content-buttons button"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>         cancel</button>
-                    <button id="pledge-next-button" class="home-content-buttons button">pledge        <i class="fa fa-chevron-circle-right" aria-hidden="true"></i></button>
+                <div class="pledge-button-wrapper">
+                    <button id="" class="pledge-back-button home-content-buttons button"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>         cancel</button>
+                    <button id="" class=" pledge-next-button home-content-buttons button">pledge        <i class="fa fa-chevron-circle-right" aria-hidden="true"></i></button>
 
 
                 </div>
@@ -93,6 +96,12 @@
                 open:null,
                 imageUri:null,
                 title:null,
+                stage:0,
+                displayInitial:true,
+                displayPayment:false,
+                pledgeAmount:null,
+                pledgeAmountNumerical:null,
+
 
             }
         },
@@ -115,7 +124,32 @@
             init: function () {
                 $("#pledge-image").css('background-image', 'url("http://localhost:4941/api/v2' +  this.imageUri +'")');
 
-            }
+            },
+            nextButtonClicked : function (event) {
+
+                switch(this.stage){
+                    case 0:
+                        this.pledgeAmountNumerical = parseInt(this.pledgeAmount);
+                        if(this.pledgeAmountNumerical){
+                            this.displayPayment=true;
+                            this.displayInitial=false;
+                            this.stage++;
+
+                        }else{
+                            this.swing("#pledge-amount-input");
+                        }
+                        break;
+                    case 1:
+                        break;
+
+                }
+            },
+            swing: function(node){
+                var el = $(node).addClass('swing');
+                setTimeout(function() {
+                    el.removeClass('swing');
+                }, 800);
+            },
         }
     }
 </script>

@@ -15,17 +15,6 @@
             <div class="black-border new-project-cell large-project-cell thin-border" id="insert-information">
                 <h2 id="information-title">information</h2>
 
-                <!--<div class="information-item-title" id="subtitle-label">subtitle</div>-->
-                <!--<input type="text" v-model="subtitle" maxlength="50" class="black-border info-input" id="subtitle-info-input" placeholder="an awesome project">-->
-                <!--<br>-->
-
-                <!--<div class="information-item-title" id="amount-label">target</div>-->
-                <!--<span id="target-info-input-span" class="black-border info-input">$<input v-model="target" maxlength="15" type="text" name="currency" id="target-info-input" placeholder="500"></span>-->
-                <!--<br>-->
-
-                <!--<div class="information-item-title" id="description-label">description</div>-->
-                <!--<textarea type="text" v-model="description" maxlength="5000" class="black-border info-input" id="description-info-input"/>-->
-
                 <input type="text" v-model="subtitle" maxlength="50" class="black-border info-input" id="subtitle-info-input" placeholder="an awesome project">
                 <span id="" class="information-item-title input-group-addon">subtitle</span>
 
