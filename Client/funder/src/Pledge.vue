@@ -5,8 +5,8 @@
     <div id="pledge-content">
         <ol class="progtrckr" data-progtrckr-steps="3">
             <li class="progtrckr-done">confirmation</li>
-            <li class="progtrckr-todo">payment</li>
-            <li class="progtrckr-todo">done</li>
+            <li class="" v-bind:class="{'progtrckr-done': !displayInitial, 'progtrckr-todo': displayInitial}">payment</li>
+            <li id="progtrckr-step-2" class="" v-bind:class="{'progtrckr-done': displayDone, 'progtrckr-todo': !displayDone}">done</li>
         </ol>
 
 
@@ -14,9 +14,9 @@
 
         <div id="pledge-content-1" v-bind:class="{'pledge-content-1-minimised': !displayInitial}">
 
-            <div id="pledge-image" class="box-shadow">
+            <div  class="pledge-image box-shadow">
 
-                <div id="pledge-text" class="center box-shadow">I would like to pledge $<input id="pledge-amount-input" placeholder="" v-model="pledgeAmount"><br/> to {{ title }}</div>
+                <div class="pledge-text center box-shadow">I would like to pledge $<input id="pledge-amount-input" placeholder="" v-model="pledgeAmount"><br/> to {{ title }}</div>
 
             </div>
             <div class="pledge-button-wrapper">
@@ -55,18 +55,29 @@
 
                 <div class="pledge-button-wrapper">
                     <button id="" class="pledge-back-button home-content-buttons button"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>         cancel</button>
-                    <button id="" class=" pledge-next-button home-content-buttons button">pledge        <i class="fa fa-chevron-circle-right" aria-hidden="true"></i></button>
+                    <button id="" class=" pledge-next-button home-content-buttons button" v-on:click="nextButtonClicked">pledge        <i class="fa fa-chevron-circle-right" aria-hidden="true"></i></button>
 
 
                 </div>
+            </div>
+
         </div>
 
 
 
-            <!--ENTRY FORM CREATED BY LLGRUFF. Used under licence-->
-            <!--Copyright (c) 2017 by llgruff (https://codepen.io/llgruff/pen/JdyJWR)-->
+
+        <div id="pledge-content-3" v-bind:class="{'pledge-content-3-minimised': !displayDone}">
+
+            <div class="pledge-image box-shadow">
+
+                <div class="pledge-text center box-shadow">you have successfully pledged ${{ pledgeAmountNumerical }} to {{ title }}</div>
+
+            </div>
+            <div class="pledge-button-wrapper">
+                <button class="pledge-next-button home-content-buttons button" v-on:click="nextButtonClicked">finish        <i class="fa fa-chevron-circle-right" aria-hidden="true"></i></button>
 
 
+            </div>
         </div>
 
 
@@ -101,6 +112,7 @@
                 displayPayment:false,
                 pledgeAmount:null,
                 pledgeAmountNumerical:null,
+                displayDone:false,
 
 
             }
@@ -122,7 +134,7 @@
         },
         methods: {
             init: function () {
-                $("#pledge-image").css('background-image', 'url("http://localhost:4941/api/v2' +  this.imageUri +'")');
+                $(".pledge-image").css('background-image', 'url("http://localhost:4941/api/v2' +  this.imageUri +'")');
 
             },
             nextButtonClicked : function (event) {
@@ -135,11 +147,15 @@
                             this.displayInitial=false;
                             this.stage++;
 
+
                         }else{
                             this.swing("#pledge-amount-input");
                         }
                         break;
                     case 1:
+                        this.displayPayment=false;
+                        this.displayDone=true;
+                        this.stage++;
                         break;
 
                 }

@@ -1323,7 +1323,7 @@ ol.progtrckr li.progtrckr-todo:before {
     min-height: 0 !important;
 }
 
-#pledge-image{
+.pledge-image{
     width:97%;
     margin:1.5%;
     border-radius: 0.4rem 0.4rem 0 0;
@@ -1333,7 +1333,7 @@ ol.progtrckr li.progtrckr-todo:before {
     background-image: url('https://static.pexels.com/photos/296881/pexels-photo-296881.jpeg');
 }
 
-#pledge-text{
+.pledge-text{
     background-color: white;
     margin-left: 20%;
     margin-right: 20%;
@@ -1344,7 +1344,7 @@ ol.progtrckr li.progtrckr-todo:before {
     padding:0.5rem;
 }
 
-#pledge-text input{
+.pledge-text input{
     border:none;
     width:5rem;
     border:solid;
@@ -1398,6 +1398,7 @@ ol.progtrckr li.progtrckr-todo:before {
     min-height: 60vh !important;
 }
 
+
 #insert-payment{
     width:50%;
     max-width: 30rem;
@@ -1442,4 +1443,22 @@ ol.progtrckr li.progtrckr-todo:before {
     font-family: "Open Sans";
     font-size: 0.8rem;
     text-align: center;
+}
+
+#pledge-content-3{
+    height:60vh;
+    min-height: 60vh;
+    position: relative;
+
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    overflow: hidden;
+}
+
+.pledge-content-3-minimised{
+    height:0 !important;
+    min-height: 0 !important;
 }
