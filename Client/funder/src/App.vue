@@ -47,11 +47,11 @@
 
 
     <ul id="filter">
-      <li><a href="/" class="selected-filter"><i class="fa fa-home" aria-hidden="true"></i></a></li>
-      <li><a href="/projects">all projects</a></li>
-      <li v-show="isLoggedIn"><a href="/projects/pledged" >backed</a></li>
-      <li v-show="isLoggedIn"><a href="/projects/created">created</a></li>
-      <li id="new-project"><a href="/projects/create"><i class="fa fa-plus-circle" aria-hidden="true"></i>  start a project</a></li>
+      <li v-on:click="setActive('home')" :class="{ 'selected-filter': isActive('home')}"><a ><i class="fa fa-home" aria-hidden="true"></i></a></li>
+      <li v-on:click="setActive('projects')" :class="{ 'selected-filter': isActive('projects')}"><a >all projects</a></li>
+      <li v-on:click="setActive('pledged')" :class="{ 'selected-filter': isActive('pledged')}" v-show="isLoggedIn"><a  >backed</a></li>
+      <li v-on:click="setActive('created')" :class="{ 'selected-filter': isActive('created')}" v-show="isLoggedIn"><a>created</a></li>
+      <li v-on:click="setActive('create')" :class="{ 'selected-filter': isActive('create')}" id="new-project"><a ><i class="fa fa-plus-circle" aria-hidden="true"></i>  start a project</a></li>
     </ul>
 
     <router-view></router-view>
@@ -80,16 +80,45 @@
                 registerEmail: null,
                 registerUsername: null,
                 registerPassword: null,
-                loginName: 'login'
+                loginName: 'login',
+                activeItem: 'home'
             }
         },
         mounted: function (){
+
+
             if(localStorage.getItem('currentUserId')){
                 this.isLoggedIn=true
                 this.loginName = localStorage.getItem('currentUserName');
             }
         },
         methods: {
+            isActive: function (menuItem) {
+                return this.activeItem === menuItem;
+            },
+            setActive: function (menuItem) {
+                this.activeItem = menuItem;
+
+                switch(menuItem){
+                    case 'home':
+                        this.$router.push('/');
+                        break;
+                    case 'projects':
+                        this.$router.push('/projects');
+                        break;
+                    case 'pledged':
+                        this.$router.push('/projects/pledged');
+                        break;
+                    case 'created':
+                        this.$router.push('/projects/created');
+                        break;
+                    case 'create':
+                        this.$router.push('/projects/create');
+                        break;
+
+                }
+
+            },
             onSubmit: function(){
                 return
             },

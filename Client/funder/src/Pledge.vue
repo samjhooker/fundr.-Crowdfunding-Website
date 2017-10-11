@@ -20,7 +20,7 @@
 
             </div>
             <div class="pledge-button-wrapper">
-                <button class="pledge-back-button home-content-buttons button"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>         cancel</button>
+                <button class="pledge-back-button home-content-buttons button" v-on:click="returnToProjects"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>         cancel</button>
                 <button class="pledge-next-button home-content-buttons button" v-on:click="nextButtonClicked">next        <i class="fa fa-chevron-circle-right" aria-hidden="true"></i></button>
 
 
@@ -50,11 +50,11 @@
                 <input type="text" maxlength="16" class="black-border info-input payment-card-input" id="" placeholder="123">
                 <span class="card-icon box-shadow input-group-addon"><i class="fa fa-university"></i></span>
 
-                <label id="anonymous-checkbox"><input type="checkbox" value="">   pledge anonymously</label>
+                <label id="anonymous-checkbox-wrapper"><input id="anonymous-checkbox" type="checkbox" value="">   pledge anonymously</label>
 
 
                 <div class="pledge-button-wrapper">
-                    <button id="" class="pledge-back-button home-content-buttons button"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>         cancel</button>
+                    <button id="" class="pledge-back-button home-content-buttons button" v-on:click="returnToProjects"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>         cancel</button>
                     <button id="" class=" pledge-next-button home-content-buttons button" v-on:click="nextButtonClicked">pledge        <i class="fa fa-chevron-circle-right" aria-hidden="true"></i></button>
 
 
@@ -74,7 +74,7 @@
 
             </div>
             <div class="pledge-button-wrapper">
-                <button class="pledge-next-button home-content-buttons button" v-on:click="nextButtonClicked">finish        <i class="fa fa-chevron-circle-right" aria-hidden="true"></i></button>
+                <button class="pledge-next-button home-content-buttons button" v-on:click="returnToProjects">finish        <i class="fa fa-chevron-circle-right" aria-hidden="true"></i></button>
 
 
             </div>
@@ -137,6 +137,9 @@
                 $(".pledge-image").css('background-image', 'url("http://localhost:4941/api/v2' +  this.imageUri +'")');
 
             },
+            returnToProjects: function(){
+                this.$router.push('/projects');
+            },
             nextButtonClicked : function (event) {
 
                 switch(this.stage){
@@ -153,9 +156,9 @@
                         }
                         break;
                     case 1:
-                        this.displayPayment=false;
-                        this.displayDone=true;
-                        this.stage++;
+
+                        this.makePledge();
+
                         break;
 
                 }
@@ -166,6 +169,40 @@
                     el.removeClass('swing');
                 }, 800);
             },
+            makePledge: function () {
+                var token = localStorage.getItem("currentUserToken");
+                if(token){
+
+                    var data = {
+                        "id": parseInt(localStorage.getItem("currentUserId")),
+                        "amount": this.pledgeAmountNumerical,
+                        "anonymous": $("#anonymous-checkbox").is(":checked"),
+                        "card": {
+                            "authToken": "abc123"
+                        }
+                    }
+
+                    this.$http.post('http://localhost:4941/api/v2/projects/'+this.id+'/pledge/', data,
+                        {headers: {'X-Authorization': token}})
+                        .then(function(responce){
+                            console.log("pledge successful");
+                            console.log(responce);
+
+
+                            this.displayPayment=false;
+                            this.displayDone=true;
+                            this.stage++;
+
+
+                        }, function(error){
+                            console.log(error);
+                            alert("error pledging");
+                        });
+
+                }else{
+                    alert("Please log in to pledge");
+                }
+            }
         }
     }
 </script>

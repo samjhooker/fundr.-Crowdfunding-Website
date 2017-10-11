@@ -100,7 +100,19 @@
                 event.stopPropagation();
             },
             pledgeClicked : function(){
-                alert("pledge");
+                console.log(this.creators);
+                var username = localStorage.getItem("currentUserName");
+                if(username){
+                    for(var index in this.creators){
+                        if(this.creators[index].username == username){
+                            alert("You cannot pledge to your own project");
+                            return;
+                        }
+                    }
+                    this.$router.push('/pledge/'+this.projectId);
+                }else{
+                    alert("You must be logged in to pledge.");
+                }
             },
             loadProject: function(){
                 this.$http.get('http://localhost:4941/api/v2/projects/'+this.projectId+'/')
