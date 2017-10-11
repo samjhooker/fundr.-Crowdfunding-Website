@@ -183,7 +183,10 @@
                             "id": parseInt(localStorage.getItem('currentUserId'))
                         }
                     ],
-                    "rewards": this.rewards
+                }
+
+                if(this.rewards.length > 0){
+                    data.rewards = this.rewards;
                 }
 
                 this.$http.post(this.$root.$data.url + 'projects/', data, {headers: {'X-Authorization': localStorage.getItem('currentUserToken')}})
@@ -202,26 +205,18 @@
 
                     var type = this.file.type;
 
-                    var bin = this.image.substring(this.image.indexOf(",") + 1);
-
-
-                    var data={
-                        'image':bin,
-                        'type': type
-                    }
-                    console.log(bin);
-
-                    var formData = new FormData();
-                    formData.append('image', this.image);
-
-
                     this.$http.put(this.$root.$data.url + 'projects/'+projectId+'/image/', this.file,
                         {headers:{'X-Authorization': localStorage.getItem('currentUserToken'), 'Content-Type': type}})
                         .then(function(responce){
                             console.log("Image Posted Successfully");
+                            this.$router.push('/projects');
+
                         }, function(error){
+
+                            alert("Project has been created but image upload failed. File size may be too large or format may be incorrect. Images can be edited within the project.");
+                            this.$router.push('/projects');
+
                             console.log(error);
-                            alert("error posting image");
                         });
                 }
 
