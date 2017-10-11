@@ -4,12 +4,12 @@
 
   <div id="app">
 
-    <div id="header">
-      <h1 id="header-title">funder</h1>
+    <div id="header" v-bind:class="{'colored-header': scrollPosition>100}">
+      <h1 id="header-title">fundr.</h1>
       <div id="account-text" v-on:click="loginButtonClicked()"><i class="fa fa-user" aria-hidden="true"></i>
         {{ loginName }}</div>
     </div>
-    <div id="header-content" v-bind:class="{'header-expanded':headerExpanded}">
+    <div id="header-content" class="box-shadow" v-bind:class="{'header-expanded':headerExpanded}">
       <div id="funder-about" class="normal-text">
         "don't use straight black or boxes in interface design" - Professor Andy Cockburn
         <br><br>
@@ -81,11 +81,13 @@
                 registerUsername: null,
                 registerPassword: null,
                 loginName: 'login',
-                activeItem: 'home'
+                activeItem: 'home',
+                scrollPosition: null
             }
         },
         mounted: function (){
 
+            window.addEventListener('scroll', this.updateScroll);
 
             if(localStorage.getItem('currentUserId')){
                 this.isLoggedIn=true
@@ -93,6 +95,9 @@
             }
         },
         methods: {
+            updateScroll() {
+                this.scrollPosition = window.scrollY
+            },
             isActive: function (menuItem) {
                 return this.activeItem === menuItem;
             },
@@ -143,7 +148,7 @@
             },
             loginUser: function (username, password) {
 
-                this.$http.post('http://localhost:4941/api/v2/users/login/?username='+username+'&email='+username+'&password='+password, null)
+                this.$http.post(this.$root.$data.url + 'users/login/?username='+username+'&email='+username+'&password='+password, null)
                     .then(function(responce){
                         console.log("loggedIn");
                         this.isLoggedIn = true;
@@ -164,7 +169,7 @@
                     };
                     console.log(postData);
 
-                    this.$http.post('http://localhost:4941/api/v2/users/', postData)
+                    this.$http.post(this.$root.$data.url + 'users/', postData)
                         .then(function(responce){
                             console.log("Account Creation Successful");
                             this.loginUser(postData.username, postData.password);
@@ -179,7 +184,7 @@
                 return re.test(email);
             },
             getUserFromID(id, token){
-                this.$http.get('http://localhost:4941/api/v2/users/'+id+'/', {headers: {'X-Authorization': token}})
+                this.$http.get(this.$root.$data.url + 'users/'+id+'/', {headers: {'X-Authorization': token}})
                     .then(function(responce){
                         console.log("Account Creation Successful");
                         localStorage.setItem('currentUserId', id);
@@ -198,7 +203,7 @@
             },
             logoutPressed: function(){
 
-                this.$http.post('http://localhost:4941/api/v2/users/logout', null, {headers: {'X-Authorization': localStorage.getItem('currentUserToken')}})
+                this.$http.post(this.$root.$data.url + 'users/logout', null, {headers: {'X-Authorization': localStorage.getItem('currentUserToken')}})
                     .then(function(responce){
                         console.log("logged out");
                         localStorage.clear();

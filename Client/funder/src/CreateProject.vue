@@ -186,7 +186,7 @@
                     "rewards": this.rewards
                 }
 
-                this.$http.post('http://localhost:4941/api/v2/projects/', data, {headers: {'X-Authorization': localStorage.getItem('currentUserToken')}})
+                this.$http.post(this.$root.$data.url + 'projects/', data, {headers: {'X-Authorization': localStorage.getItem('currentUserToken')}})
                     .then(function(responce){
                         console.log("Project Creation Successful");
                         this.postImage(responce.body.id);
@@ -215,7 +215,7 @@
                     formData.append('image', this.image);
 
 
-                    this.$http.put('http://localhost:4941/api/v2/projects/'+projectId+'/image/', this.file,
+                    this.$http.put(this.$root.$data.url + 'projects/'+projectId+'/image/', this.file,
                         {headers:{'X-Authorization': localStorage.getItem('currentUserToken'), 'Content-Type': type}})
                         .then(function(responce){
                             console.log("Image Posted Successfully");

@@ -38,7 +38,7 @@
             }
         },
         mounted: function (){
-            this.$http.get('http://localhost:4941/api/v2/projects')
+            this.$http.get(this.$root.$data.url + 'projects')
                 .then(function(responce){
                     console.log("projects recieved");
                     console.log(responce);

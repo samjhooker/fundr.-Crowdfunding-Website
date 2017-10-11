@@ -115,7 +115,7 @@
                 }
             },
             loadProject: function(){
-                this.$http.get('http://localhost:4941/api/v2/projects/'+this.projectId+'/')
+                this.$http.get(this.$root.$data.url + 'projects/'+this.projectId+'/')
                     .then(function(responce){
                         console.log("project pulled Successful");
                         console.log(responce);

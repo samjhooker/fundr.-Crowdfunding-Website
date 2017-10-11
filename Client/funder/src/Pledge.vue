@@ -118,7 +118,7 @@
             }
         },
         mounted: function (){
-            this.$http.get('http://localhost:4941/api/v2/projects/'+this.id+'/')
+            this.$http.get(this.$root.$data.url + 'projects/'+this.id+'/')
                 .then(function(responce){
                     console.log("project pulled Successful");
                     console.log(responce);
@@ -182,7 +182,7 @@
                         }
                     }
 
-                    this.$http.post('http://localhost:4941/api/v2/projects/'+this.id+'/pledge/', data,
+                    this.$http.post(this.$root.$data.url + 'projects/'+this.id+'/pledge/', data,
                         {headers: {'X-Authorization': token}})
                         .then(function(responce){
                             console.log("pledge successful");
