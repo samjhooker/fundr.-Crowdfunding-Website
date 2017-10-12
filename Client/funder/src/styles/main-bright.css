@@ -400,6 +400,7 @@ button:focus{
     #content-left{
         width: 65%;
         display:inline-grid;
+        padding-right:1rem;
     }
     #content-right{
         width: 35%;
@@ -624,6 +625,21 @@ button:focus{
     width:0%;
 }
 
+#user-pledge-label{
+    margin: 0 0.5rem 0.5rem 0.5rem;
+    padding: 1rem;
+    text-align: center;
+    background-color: #f2f2f2;
+    height: 3rem;
+    border-radius: 0 0 0.4rem 0.4rem;
+}
+
+.pledge-button-flat{
+    -webkit-border-radius: 0.4rem 0.4rem 0 0 !important;
+    -moz-border-radius: 0.4rem 0.4rem 0 0 !important;
+    border-radius: 0.4rem 0.4rem 0 0 !important;
+    margin-bottom:0 !important;
+}
 
 
 

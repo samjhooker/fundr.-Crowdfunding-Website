@@ -12,7 +12,6 @@
 
             <div id="content-left">
                 <h2 id="project-name-text" class="project-title-text">{{ projectName }}</h2>
-
                 <div id="money-raised-text" class="project-title-text normal-text">{{ backerText }}</div>
                 <div class="progress">
                     <div class="progress-bar" role="progressbar" aria-valuenow="0"
@@ -40,8 +39,11 @@
             </div>
 
             <div id="content-right">
-                <div class="button" v-on:click="pledgeClicked()">pledge</div>
+                <div class="button" v-bind:class="{'pledge-button-flat': usersPledge}" v-on:click="pledgeClicked()">pledge</div>
+                <div id="user-pledge-label" class="box-shadow normal-text" v-if="usersPledge"> you pledged ${{ usersPledge }}</div>
+
                 <i class="loading-spinner fa fa-spinner fa-pulse fa-3x fa-fw" v-show="!isLoaded" aria-hidden="true"></i>
+
                 <ul class="normal-text" id="pledges">
                     <li class="box-shadow grow" v-for="pledge in pledges">{{ pledge }}</li>
                 </ul>
@@ -80,7 +82,8 @@
                 target:null,
                 status:null,
                 backerText:null,
-                pledges:[]
+                pledges:[],
+                usersPledge:null,
             }
         },
         mounted: function(){
@@ -90,9 +93,7 @@
             contentCellClicked: function(event){
                 if(this.isExtended)return; // dont allow click to return
                 this.isExtended = !this.isExtended;
-                if(!this.isLoaded){
-                    this.loadProject();
-                }
+                this.loadProject();
                 if(this.isExtended){
                     $('html,body').animate({
                             scrollTop: $("#"+this.projectId).offset().top -4*16},
@@ -143,24 +144,8 @@
 
 
                         var backers =responce.body.backers;
-                        var recentBackers = [];
-                        for(var index in backers){
-                            if(recentBackers.length<6){
-                                var username = backers[index].username;
-                                if (recentBackers[username]){
-                                    recentBackers[username] += backers[index].amount;
-                                }else{
-                                    recentBackers[username] = backers[index].amount;
-                                }
-
-                            }
-                        }
-                        console.log(recentBackers);
-
-                        for(var name in recentBackers){
-                            this.pledges.push(name+" pledged $" + recentBackers[name]);
-                        }
-
+                        this.populateBackers(backers);
+                        this.displayUserBacker(backers)
 
 
                         this.isLoaded = true;
@@ -168,6 +153,36 @@
                         console.log(error);
                         alert("error getting project details");
                     });
+
+            },
+            populateBackers: function (backers) {
+                var recentBackers = [];
+                for(var index in backers){
+                    if(recentBackers.length<6){
+                        var username = backers[index].username;
+                        if (recentBackers[username]){
+                            recentBackers[username] += backers[index].amount;
+                        }else{
+                            recentBackers[username] = backers[index].amount;
+                        }
+
+                    }
+                }
+                this.pledges = [];
+                for(var name in recentBackers){
+                    this.pledges.push(name+" pledged $" + recentBackers[name]);
+                }
+
+            },
+            displayUserBacker: function (backers) {
+                var userId = localStorage.getItem('currentUserId');
+                if(userId){
+                    var userPledge = 0;
+                    for(var index in backers){
+                            if(backers[index].id == parseInt(userId)) userPledge += backers[index].amount;
+                    }
+                    if(userPledge > 0) this.usersPledge = userPledge;
+                }
 
             },
             timeSince: function(date){
