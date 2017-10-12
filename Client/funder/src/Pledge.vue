@@ -98,6 +98,7 @@
 
 
 <script>
+    import swal from 'sweetalert';
 
     export default {
         name: 'pledge',
@@ -129,7 +130,7 @@
                     this.init();
                 }, function(error){
                     console.log(error);
-                    alert("error getting project details");
+                    swal("This isn't right!", "Cannot retrieve projects at the moment", "error");
                 });
         },
         methods: {
@@ -157,7 +158,15 @@
                         break;
                     case 1:
 
-                        this.makePledge();
+                        swal("Taking your money. This won't take a moment.", {
+                            buttons: false,
+                            timer: 2000,
+                        });
+
+                        var self = this;
+                        setTimeout(function () {
+                            self.makePledge();
+                        }, 2000);
 
                         break;
 
@@ -196,11 +205,11 @@
 
                         }, function(error){
                             console.log(error);
-                            alert("error pledging");
+                            swal("Sorry about that!", "Cannot pledge right now, please try again.", "error");
                         });
 
                 }else{
-                    alert("Please log in to pledge");
+                    swal("Slight Problem!", "You need to log in before you can pledge to a project", "info");
                 }
             }
         }

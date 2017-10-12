@@ -67,6 +67,10 @@
 
 
 <script>
+
+    import swal from 'sweetalert';
+
+
     export default {
         name: 'app',
         data () {
@@ -86,7 +90,6 @@
             }
         },
         mounted: function (){
-
             window.addEventListener('scroll', this.updateScroll);
 
             if(localStorage.getItem('currentUserId')){
@@ -213,7 +216,8 @@
 
                     }, function(error){
                         console.log(error);
-                        alert("error logout");
+                        swal("Ummmm!", "There was an error while logging you out. Please try again.", "error");
+
                     });
 
 

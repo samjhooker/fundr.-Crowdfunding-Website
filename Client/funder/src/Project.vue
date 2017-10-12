@@ -51,13 +51,15 @@
             </div>
         </div>
 
-        <div id="user-content-wrapper" class="box-shadow" v-show="isExtended">
+        <div id="user-content-wrapper" class="box-shadow" v-if="isCreator" v-show="isExtended">
             <h2>my project</h2>
             <div id="user-content">
-                <div id="update-image" class="box-shadow">
+                <div id="update-image" class="box-shadow" v-on:click="insertImageButtonPressed">
                     <div class="center" id="update-image-label"></div>
                 </div>
                 <button class="button" id="close-project-button">close project.<br/>this cannot be undone</button>
+                <input class="hidden" type="file" id="files" name="files[]" accept="image/*" v-on:change="fileChoosen" single/>
+
             </div>
         </div>
 
@@ -66,11 +68,14 @@
 
 
 <script>
+    import swal from 'sweetalert';
+
     export default {
         name: 'project',
         props: ['projectName', 'projectSubtitle', 'imageUrl', 'projectId'],
         data () {
             return{
+                isCreator:false,
                 isExtended: false,
                 isLoaded : false,
                 description:null,
@@ -84,6 +89,7 @@
                 backerText:null,
                 pledges:[],
                 usersPledge:null,
+                file:null,
             }
         },
         mounted: function(){
@@ -107,19 +113,58 @@
                 this.isExtended = !this.isExtended;
                 event.stopPropagation();
             },
+            insertImageButtonPressed : function () {
+                $("#files").click();
+            },
+            fileChoosen : function(evt){
+
+                var self = this;
+                var files = evt.target.files;
+
+                this.file = files[0];
+
+                var reader = new FileReader();
+
+                reader.onload = (function(theFile) {
+                    return function(e) {
+
+                        $('#image-view-'+self.projectId).css('background-image', "url('"+e.target.result+"')");
+                        self.saveImage();
+
+                    };
+                })(this.file);
+                reader.readAsDataURL(this.file);
+
+
+            },
+            saveImage: function () {
+                if(this.file){
+
+                    var type = this.file.type;
+
+                    this.$http.put(this.$root.$data.url + 'projects/'+this.projectId+'/image/', this.file,
+                        {headers:{'X-Authorization': localStorage.getItem('currentUserToken'), 'Content-Type': type}})
+                        .then(function(responce){
+                            console.log("Image Posted Successfully");
+                        }, function(error){
+                            swal("Not so fast!", "Image upload failed. File size may be too large.", "error");
+                            console.log(error);
+                        });
+                }
+
+            },
             pledgeClicked : function(){
                 console.log(this.creators);
                 var username = localStorage.getItem("currentUserName");
                 if(username){
-                    for(var index in this.creators){
-                        if(this.creators[index].username == username){
-                            alert("You cannot pledge to your own project");
-                            return;
-                        }
+                    if(this.isCreator){
+                        swal("Sorry!", "For legal reasons, you cannot pledge to your own project.", "error");
+                        return;
                     }
                     this.$router.push('/pledge/'+this.projectId);
                 }else{
-                    alert("You must be logged in to pledge.");
+                    swal("Slight Problem!", "You need to log in before you can pledge to a project", "info");
+
                 }
             },
             loadProject: function(){
@@ -148,10 +193,21 @@
                         this.displayUserBacker(backers)
 
 
+                        var id = localStorage.getItem("currentUserId");
+                        if(id){
+                            for(var index in this.creators){
+                                if(this.creators[index].id == parseInt(id)){
+                                    this.isCreator = true;
+                                }
+                            }
+                        }
+
+
                         this.isLoaded = true;
                     }, function(error){
                         console.log(error);
-                        alert("error getting project details");
+                        swal("My bad!", "Unable to retrieve project from server. please try again", "error");
+
                     });
 
             },

@@ -35,6 +35,7 @@
 
 
 <script>
+    import swal from 'sweetalert';
     import Project from './Project.vue'
     import Typed from 'typed.js';
 
@@ -80,7 +81,8 @@
                     }
                 }, function(error){
                     console.log(error);
-                    alert("error getting projects");
+                    swal("Whoops!", "Cannot retrieve projects at the moment", "error");
+
                 });
         },
         methods: {

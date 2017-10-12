@@ -69,6 +69,9 @@
 
 
 <script>
+
+    import swal from 'sweetalert';
+
     export default {
         name: 'create-project',
         data () {
@@ -99,7 +102,7 @@
                     if(this.projectName != ""){
                         this.isTop = true;
                     }else{
-                        alert("project name required");
+                        this.swing('#project-name-input');
                     }
                 }else{
                     this.isLoggedIn = false;
@@ -195,7 +198,8 @@
                         this.postImage(responce.body.id);
                     }, function(error){
                         console.log(error);
-                        alert("error creating project");
+                        swal("That's awkward!", "There was an error creating your project. Please try again", "error");
+
                     });
 
             },
@@ -208,16 +212,21 @@
                     this.$http.put(this.$root.$data.url + 'projects/'+projectId+'/image/', this.file,
                         {headers:{'X-Authorization': localStorage.getItem('currentUserToken'), 'Content-Type': type}})
                         .then(function(responce){
-                            console.log("Image Posted Successfully");
+                            swal("Yay!", "Your project funding campaign has started. Good Luck.", "success");
                             this.$router.push('/projects');
+
+
 
                         }, function(error){
 
-                            alert("Project has been created but image upload failed. File size may be too large or format may be incorrect. Images can be edited within the project.");
+                            swal("Well... this happened", "Project has been created but image upload failed. File size may be too large. Images can be edited within the project.", "info");
                             this.$router.push('/projects');
 
                             console.log(error);
                         });
+                }else{
+                    swal("Yay!", "Your project funding campaign has started. Good Luck.", "success");
+                    this.$router.push('/projects');
                 }
 
             }

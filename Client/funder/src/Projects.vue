@@ -26,6 +26,8 @@
 
 <script>
     import Project from './Project.vue'
+    import swal from 'sweetalert';
+
 
     export default {
         name: 'projects',
@@ -51,7 +53,7 @@
                     }
                 }, function(error){
                     console.log(error);
-                    alert("error getting projects");
+                    swal("Whoops!", "Cannot retrieve projects at the moment", "error");
                 });
         },
         methods: {
