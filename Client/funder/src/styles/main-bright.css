@@ -618,6 +618,13 @@ button:focus{
 
 }
 
+.progress-bar {
+    background-color: #e52b6f;
+    transition: width 1.6s ease;
+    width:0%;
+}
+
+
 
 
 

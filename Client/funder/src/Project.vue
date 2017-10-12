@@ -4,13 +4,22 @@
             <h2 id="project-name-title" class="white-project-title-text">{{ projectName }}</h2>
             <div id="project-subtitle-title" class="white-project-title-text normal-text">{{ projectSubtitle }}</div>
         </div>
-        <!--<img v-bind:src="imageUrl" alt>-->
+
         <div v-bind:id="'image-view-'+projectId" class="image-view"></div>
         <i class="fa fa-times close-button" v-bind:class="{'hidden':!isExtended}" aria-hidden="true" id="close-button" v-on:click="contentCellClosed"></i>
+
         <div id="content-info" v-bind:class="{'hidden':!isExtended}">
+
             <div id="content-left">
                 <h2 id="project-name-text" class="project-title-text">{{ projectName }}</h2>
+
                 <div id="money-raised-text" class="project-title-text normal-text">{{ backerText }}</div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
+
                 <div id="amount-pledged-text" class="project-title-text normal-text"><strong></strong></div>
                 <i class="loading-spinner fa fa-spinner fa-pulse fa-3x fa-fw" v-show="!isLoaded" aria-hidden="true"></i>
                 <div id="description-text" class="normal-text" v-show="isLoaded">
@@ -29,6 +38,7 @@
 
                 </div>
             </div>
+
             <div id="content-right">
                 <div class="button" v-on:click="pledgeClicked()">pledge</div>
                 <i class="loading-spinner fa fa-spinner fa-pulse fa-3x fa-fw" v-show="!isLoaded" aria-hidden="true"></i>
@@ -127,7 +137,15 @@
                         this.status = responce.body.open;
                         if(responce.body.progress){
                             this.backerText = "$"+responce.body.progress.currentPledged + " pledged from " +responce.body.progress.numberOfBackers + " backers";
+
+                            var percentage = parseInt((parseInt(responce.body.progress.currentPledged)/parseInt(responce.body.target)) * 100);
+
+                            $('.progress-bar').css('width',percentage+'%');
+                            $('.progress-bar').text(percentage+'% funded');
+
+
                         }
+
 
 
                         this.isLoaded = true;
