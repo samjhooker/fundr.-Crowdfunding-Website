@@ -43,11 +43,7 @@
                 <div class="button" v-on:click="pledgeClicked()">pledge</div>
                 <i class="loading-spinner fa fa-spinner fa-pulse fa-3x fa-fw" v-show="!isLoaded" aria-hidden="true"></i>
                 <ul class="normal-text" id="pledges">
-                    <li class="box-shadow grow">Joe Smith pledges $230</li>
-                    <li class="box-shadow grow">Sam pledges $230</li>
-                    <li class="box-shadow grow">Anonymous pledges $134</li>
-                    <li class="box-shadow grow">Bob Jones pledges $230</li>
-                    <li class="box-shadow grow">Sir Pledgealot pledges $230</li>
+                    <li class="box-shadow grow" v-for="pledge in pledges">{{ pledge }}</li>
                 </ul>
 
             </div>
@@ -84,6 +80,7 @@
                 target:null,
                 status:null,
                 backerText:null,
+                pledges:[]
             }
         },
         mounted: function(){
@@ -137,13 +134,31 @@
                         this.status = responce.body.open;
                         if(responce.body.progress){
                             this.backerText = "$"+responce.body.progress.currentPledged + " pledged from " +responce.body.progress.numberOfBackers + " backers";
-
                             var percentage = parseInt((parseInt(responce.body.progress.currentPledged)/parseInt(responce.body.target)) * 100);
 
                             $('.progress-bar').css('width',percentage+'%');
                             $('.progress-bar').text(percentage+'% funded');
 
+                        }
 
+
+                        var backers =responce.body.backers;
+                        var recentBackers = [];
+                        for(var index in backers){
+                            if(recentBackers.length<6){
+                                var username = backers[index].username;
+                                if (recentBackers[username]){
+                                    recentBackers[username] += backers[index].amount;
+                                }else{
+                                    recentBackers[username] = backers[index].amount;
+                                }
+
+                            }
+                        }
+                        console.log(recentBackers);
+
+                        for(var name in recentBackers){
+                            this.pledges.push(name+" pledged $" + recentBackers[name]);
                         }
 
 
