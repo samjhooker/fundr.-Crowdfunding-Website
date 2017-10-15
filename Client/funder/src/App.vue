@@ -56,6 +56,11 @@
 
     <router-view></router-view>
 
+    <div class="box-shadow" id="footer">
+      <i class="fa fa-copyright" aria-hidden="true"></i> Fundr Limited 2017 All rights reserved.
+
+    </div>
+
 
   </div>
 
@@ -88,6 +93,11 @@
                 activeItem: 'home',
                 scrollPosition: null
             }
+        },
+        watch:{
+          '$route': function (from, to) {
+              console.log("TOOOO: "+ to);
+          }
         },
         mounted: function (){
             window.addEventListener('scroll', this.updateScroll);

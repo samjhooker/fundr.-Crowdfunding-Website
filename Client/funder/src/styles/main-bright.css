@@ -1,4 +1,4 @@
-/*#e52a6f*/
+/*#ea2e6d*/
 
 body{
     font-family: 'Open Sans', sans-serif;
@@ -46,6 +46,10 @@ button:focus{
     box-shadow: none;
     outline:none;
 }
+select:focus{
+    box-shadow: none;
+    outline:none;
+}
 
 #header{
     width: 100%;
@@ -59,7 +63,7 @@ button:focus{
 }
 
 .colored-header{
-    background-color: #e52a6f !important;
+    background-color: #ea2e6d !important;
     opacity: 0.85;
 }
 .colored-header h1{
@@ -72,13 +76,13 @@ button:focus{
 
 #header-title{
     position: absolute;
-    color: #e52a6f;
+    color: #ea2e6d;
     margin-top:1.3rem;
     left: 6%;
 }
 #account-text{
     position: absolute;
-    color: #e52a6f;
+    color: #ea2e6d;
     margin-top:1.3rem;
     right: 6%;
 }
@@ -114,7 +118,7 @@ button:focus{
     margin: 0.2rem 0 0.2rem 0.2rem !important;
     width: 15rem;
     border-radius: 0.4rem;
-    background-color: #e52a6f;
+    background-color: #ea2e6d;
     border: solid;
     color: white;
 
@@ -127,7 +131,7 @@ button:focus{
 .login-form{
     width: 15rem;
     background-color: white;
-    color: #e52a6f;
+    color: #ea2e6d;
 
     padding: 0.3rem;
     margin: 0rem 0 0.3rem 0.2rem;
@@ -233,14 +237,14 @@ button:focus{
 }
 
 .selected-filter{
-    color: #e52a6f !important;
+    color: #ea2e6d !important;
     border-color: white !important;
     -webkit-transform-origin-x: 3rem;
     box-shadow: none !important;
 }
 
 .selected-filter a{
-    color: #e52a6f  !important;
+    color: #ea2e6d  !important;
 }
 
 #filter li{
@@ -263,7 +267,7 @@ button:focus{
 }
 
 #filter li a:hover {
-    color: #e52a6f;
+    color: #ea2e6d;
 }
 #new-project{
     float: right;
@@ -272,7 +276,7 @@ button:focus{
     padding-right: 0 !important;
 }
 #filter li a:focus{
-    color: #e52a6f !important;
+    color: #ea2e6d !important;
 }
 
 
@@ -352,7 +356,7 @@ button:focus{
 .image-view{
     display: block;
     position: relative;
-    background-color: #e52a6f;
+    background-color: #ea2e6d;
     width: 100%;
     height: 100%;
     -webkit-transition:  0.5s; /* Safari */
@@ -486,7 +490,7 @@ button:focus{
         background-color: #d7d7d7;
         padding: 0.5rem 0.2rem 0.5rem 0.2rem;
         margin: 0.5rem;
-        color:#e52a6f;
+        color:#ea2e6d;
         text-align: center;
 
     }
@@ -740,7 +744,7 @@ button:focus{
     margin: 0.5rem;
     padding: 0.5rem;
     font-size: 1.2rem;
-    background-color: #e52a6f;
+    background-color: #ea2e6d;
     color:white;
     font-family: 'Montserrat', sans-serif;
     text-align: center;
@@ -775,7 +779,7 @@ button:focus{
 }
 
 .search-icon{
-    color:#e52a6f;
+    color:#ea2e6d;
 
 }
 
@@ -801,13 +805,25 @@ button:focus{
     text-align: center;
     -webkit-transition: all 0.2s; /* Safari */
     transition: all 0.2s;
-    width: 100%;
+    width: 80%;
     height: 2.5rem;
     font-size: 1rem;
     border-color: #ebebeb;
     box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.12);
 
 }
+#projects-per-screen-select{
+    width: 19%;
+    margin-left: 1%;
+    font-size: 1rem;
+    height: 2.5rem;
+    color: #7e7575;
+    background-color: white;
+    border-color: #eaeaea;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.12);
+
+}
+
 
 
 
@@ -880,7 +896,7 @@ button:focus{
     font-family: 'Montserrat', sans-serif;
     border:solid;
     border-width: 0 0 1px 0;
-    border-color: #e52a6f;
+    border-color: #ea2e6d;
     -webkit-transition: all 0.5s; /* Safari */
     transition: all 0.5s;
 }
@@ -888,7 +904,7 @@ button:focus{
 .project-name-input-top{
     width: 100% !important;
     color:white;
-    background-color: #e52a6f;
+    background-color: #ea2e6d;
     border:none;
     padding: 0 1rem 0 1rem;
     overflow: scroll;
@@ -1196,7 +1212,7 @@ button:focus{
     width:100%;
     height:60vh;
     border-radius: 0.4rem;
-    background-color: #e52a6f;
+    background-color: #ea2e6d;
     margin:0.5rem 0.5rem 2rem 0.5rem;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     transition: all 1s;
@@ -1518,7 +1534,7 @@ ol.progtrckr li.progtrckr-todo:before {
 
 /*ALERTS*/
 .swal-button {
-    background-color: #e52a6f;
+    background-color: #ea2e6d;
     color:white;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 
@@ -1554,10 +1570,51 @@ ol.progtrckr li.progtrckr-todo:before {
 }
 
 #paginate-links li.number.active{
-    background-color:#e52a6f;
+    background-color:#ea2e6d;
     color:white;
 }
 
 #paginate-links li:hover{
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#no-projects-found-label{
+    width: 100%;
+}
+
+
+
+
+
+/*FOOTER*/
+
+
+#footer{
+    width:100%;
+    height:1.8rem;
+    background-color: #dedede;
+    color:#8B8B8B;
+    position: relative;
+    font-size: 0.8rem;
+    font-family: 'Montserrat', sans-serif;
+    left:0;
+    right:0;
+    bottom: 0;
+    margin:0;
+    text-align: center;
+    padding: 0.4rem;
 }

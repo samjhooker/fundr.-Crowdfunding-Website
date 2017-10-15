@@ -17,7 +17,7 @@ import Pledge from './Pledge.vue'
 
 
 const TESTING_API_URL = 'http://localhost:4941/api/v2/';
-const PRODUCTION_API_URL = 'http://localhost:4941/api/v2/';
+const PRODUCTION_API_URL = 'http://csse-s365.canterbury.ac.nz:4569/api/v2/';
 
 
 

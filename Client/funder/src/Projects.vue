@@ -6,11 +6,17 @@
                 id="main-content"
                 name="displayedData"
                 :list="displayedData"
-                :per="6"
+                :per="parseInt(showPerPage)"
                 >
 
             <div id="search-filter-bar">
                 <input placeholder='search' id="search-filter-input" v-on:keyup="searchInputChanged" v-model="searchInput">
+                <select id="projects-per-screen-select" v-model="showPerPage">
+                    <option value="6">6 per page</option>
+                    <option value="12" selected="selected">12 per page</option>
+                    <option value="24">24 per page</option>
+                    <option value="100">view all</option>
+                </select>
             </div>
 
             <i class="loading-spinner fa fa-spinner fa-3x fa-fw" v-show="!isLoaded" aria-hidden="true"></i>
@@ -18,6 +24,8 @@
 
             <project class="thin-border" v-for="item in paginated('displayedData')" :projectData="item" :projectId="item.id"
                      v-bind:id="item.id"></project>
+
+            <h2 class="center"  id="no-projects-found-label" v-show="displayNoProjects">No Projects Found</h2>
 
 
         </paginate>
@@ -58,7 +66,10 @@
                 isLoaded:false,
                 placeholderImageUrl: "http://www.euneighbours.eu/sites/default/files/2017-01/placeholder.png",
                 paginate: ['displayedData'],
-                searchInput: ""
+                searchInput: "",
+                displayNoProjects: false,
+                showPerPage:12,
+                selectedShowNumber:null,
 
             }
         },
@@ -69,6 +80,8 @@
                     console.log(responce);
                     this.projectData = responce.body;
                     this.displayedData = this.projectData;
+                    this.displayNoProjects = false;
+                    if(this.displayedData == []) this.displayNoProjects = true;
                     this.isLoaded=true;
                 }, function(error){
                     console.log(error);
@@ -82,17 +95,24 @@
                     'slow');
             },
             searchInputChanged: function () {
-                console.log(this.searchInput);
+
                 if(this.searchInput != ""){
                     this.displayedData = this.projectData.filter(this.search);
                 }else{
                     this.displayedData = this.projectData;
                 }
                 console.log(this.displayedData);
+                this.displayNoProjects = false;
+
+                if(this.displayedData.length < 1){
+                    this.displayNoProjects = true;
+
+                    console.log("is empty");
+                }
             },
             search: function(data){
                 return data.title.toLowerCase().includes(this.searchInput.toLowerCase())|| data.subtitle.toLowerCase().includes(this.searchInput.toLowerCase());
-            }
+            },
             
         }
     }

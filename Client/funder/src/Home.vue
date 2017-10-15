@@ -12,8 +12,8 @@
             </div>
             <div id="home-typewriter">fund<div id="home-typewriter-text">:  my life</div></div>
             <div id="home-content-content">
-                <button class="button home-content-buttons" href="/projects">see all projects</button>
-                <button class="home-content-buttons button" href="/projects/create">start a project</button>
+                <button class="button home-content-buttons" @click="$router.push('/projects')">see all projects</button>
+                <button class="home-content-buttons button" @click="$router.push('/projects/create')">start a project</button>
 
             </div>
         </div>
@@ -24,10 +24,11 @@
             <h2>most recent projects</h2>
         </div>
 
-        <project class="thin-border" v-for="item in projectData" :projectSubtitle="item.subtitle" :projectId="item.id" :projectName="item.title" :imageUrl='"http://localhost:4941/api/v2"+item.imageUri' v-bind:id="item.id"></project>
+        <project class="thin-border" v-for="item in projectData" :projectData="item" :projectId="item.id" v-bind:id="item.id"></project>
+
 
         <div id="all-projects-wrapper">
-            <button class="home-content-buttons button center" href="/projects">see all projects</button>
+            <button class="home-content-buttons button center" @click="$router.push('/projects')">see all projects</button>
         </div>
     </div>
 </template>
