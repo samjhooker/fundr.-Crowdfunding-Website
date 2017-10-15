@@ -6,6 +6,7 @@
         </div>
 
         <div v-bind:id="'image-view-'+projectId" class="image-view"></div>
+
         <i class="fa fa-times close-button" v-bind:class="{'hidden':!isExtended}" aria-hidden="true" id="close-button" v-on:click="contentCellClosed"></i>
 
         <div id="content-info" v-bind:class="{'hidden':!isExtended}">
@@ -72,9 +73,12 @@
 
     export default {
         name: 'project',
-        props: ['projectName', 'projectSubtitle', 'imageUrl', 'projectId'],
+        props: ['projectData', 'projectId'],
         data () {
             return{
+                projectName:null,
+                projectSubtitle:null,
+                imageUrl:null,
                 isCreator:false,
                 isExtended: false,
                 isLoaded : false,
@@ -93,7 +97,22 @@
             }
         },
         mounted: function(){
+            if(this.projectData){
+                this.projectName = this.projectData.title;
+                this.projectSubtitle = this.projectData.subtitle;
+                this.imageUrl = this.$root.$data.url.substring(0, this.$root.$data.url.length - 1)+ this.projectData.imageUri;
+                console.log(this.projectName + this.projectSubtitle +this.projectId +this.imageUrl);
+            }
+
             $('#image-view-'+this.projectId).css("background-image", "url('"+this.imageUrl+"')")
+        },
+        watch: {
+//            'projectId': function(){
+//                console.log(this.imageUrl);
+//                console.log(this.projectId);
+//                $('#image-view-'+this.projectId).css("background-image", "url('"+this.imageUrl+"')");
+//
+//            }
         },
         methods: {
             contentCellClicked: function(event){

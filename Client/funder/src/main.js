@@ -10,10 +10,10 @@ import Pledge from './Pledge.vue'
 
  //   __                 _
  //  / _|               | |
- // | |_ _   _ _ __   __| | ___ _ __
- // |  _| | | | '_ \ / _` |/ _ \ '__|
- // | | | |_| | | | | (_| |  __/ |
- // |_|  \__,_|_| |_|\__,_|\___|_(_)
+ // | |_ _   _ _ __   __| |_ __
+ // |  _| | | | '_ \ / _` | '__|
+ // | | | |_| | | | | (_| | |
+ // |_|  \__,_|_| |_|\__,_|_(_)
 
 
 const TESTING_API_URL = 'http://localhost:4941/api/v2/';
@@ -24,6 +24,9 @@ const PRODUCTION_API_URL = 'http://localhost:4941/api/v2/';
 
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
+
+import VuePaginate from 'vue-paginate'
+Vue.use(VuePaginate)
 
 
 const routes = [
