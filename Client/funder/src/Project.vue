@@ -5,7 +5,7 @@
             <div id="project-subtitle-title" class="white-project-title-text normal-text">{{ projectSubtitle }}</div>
         </div>
 
-        <div v-bind:id="'image-view-'+projectId" class="image-view"></div>
+        <div v-bind:id="'image-view-'+cellId" class="image-view"></div>
 
         <i class="fa fa-times close-button" v-bind:class="{'hidden':!isExtended}" aria-hidden="true" id="close-button" v-on:click="contentCellClosed"></i>
 
@@ -25,8 +25,8 @@
                 <div id="description-text" class="normal-text" v-show="isLoaded">
                     {{ projectSubtitle }}<br><br>
                     <div v-if="status == false">THIS PROJECT IS CLOSED<br></div>
-                    <div v-for="creator in creators"><strong>creator:</strong> {{creator.username}}<br></div>
                     <div v-if="target != null"><strong>target:</strong> ${{target}}<br></div>
+                    <div v-for="creator in creators"><strong>creator:</strong> {{creator.username}}<br></div>
                     <div v-if="creationDate != null"><strong>date:</strong> {{creationDate}}<br></div>
                     <br>
                     <strong>description</strong><br>{{ description }}
@@ -76,6 +76,7 @@
         props: ['projectData', 'projectId'],
         data () {
             return{
+                show:false,
                 projectName:null,
                 projectSubtitle:null,
                 imageUrl:null,
@@ -94,6 +95,7 @@
                 pledges:[],
                 usersPledge:null,
                 file:null,
+                cellId: Math.random().toString(36).substr(2, 9),
             }
         },
         mounted: function(){
@@ -101,20 +103,27 @@
                 this.projectName = this.projectData.title;
                 this.projectSubtitle = this.projectData.subtitle;
                 this.imageUrl = this.$root.$data.url.substring(0, this.$root.$data.url.length - 1)+ this.projectData.imageUri;
-                console.log(this.projectName + this.projectSubtitle +this.projectId +this.imageUrl);
+                console.log(Math.random().toString(36).substr(2, 9));
+                $('#image-view-'+this.cellId).css("background-image", "url('"+this.imageUrl+"')")
+
             }
 
-            $('#image-view-'+this.projectId).css("background-image", "url('"+this.imageUrl+"')")
         },
         watch: {
-//            'projectId': function(){
-//                console.log(this.imageUrl);
-//                console.log(this.projectId);
-//                $('#image-view-'+this.projectId).css("background-image", "url('"+this.imageUrl+"')");
-//
-//            }
+            'projectId': function(){
+                if(this.projectData){
+                    this.projectName = this.projectData.title;
+                    this.projectSubtitle = this.projectData.subtitle;
+                    this.imageUrl = this.$root.$data.url.substring(0, this.$root.$data.url.length - 1)+ this.projectData.imageUri;
+
+                    $('#image-view-'+this.cellId).css("background-image", "url('"+this.imageUrl+"')")
+
+                }
+
+            }
         },
         methods: {
+
             contentCellClicked: function(event){
                 if(this.isExtended)return; // dont allow click to return
                 this.isExtended = !this.isExtended;
@@ -187,6 +196,8 @@
                 }
             },
             loadProject: function(){
+
+
                 this.$http.get(this.$root.$data.url + 'projects/'+this.projectId+'/')
                     .then(function(responce){
                         console.log("project pulled Successful");

@@ -323,8 +323,8 @@ button:focus{
     top:-0px;
     background-color: white;
 
-    /*transition: all 0.3s;*/
-    /*-webkit-transition: all 0.3s; !* Safari *!*/
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s; /* Safari */
 }
 
 .thin-border{
@@ -345,7 +345,7 @@ button:focus{
 #main-content .content-cell:hover {
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
     position: relative;
-    top: -5px;
+    top: -3px;
 }
 
 
@@ -789,31 +789,24 @@ button:focus{
 }
 
 #search-filter-input:hover {
-    width:100%;
-    background-color: white !important;
-    border:solid !important;
-    border-color:#e52a6f;
-    border-radius: 0 !important;
-    border-width: 0 0 1px 0 !important;
-    font-size: 1.8rem;
-    text-align: left;
-    font-family: 'Montserrat', sans-serif;
-    height:3rem;
-
+    box-shadow: 5px 5px 28px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.1);
+    position: relative;
+    top: -3px;
 }
 
 #search-filter-input{
-    width:10rem;
     border:solid;
     border-width:1px;
-    border-color:#e52a6f;
-    height: 1.2rem;
     border-radius: 0.4rem;
-    font-size: 0.8rem;
     text-align: center;
     -webkit-transition: all 0.2s; /* Safari */
     transition: all 0.2s;
-    opacity: 0.8;
+    width: 100%;
+    height: 2.5rem;
+    font-size: 1rem;
+    border-color: #ebebeb;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.12);
+
 }
 
 
@@ -1529,4 +1522,42 @@ ol.progtrckr li.progtrckr-todo:before {
     color:white;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 
+}
+
+
+
+/*PAGINATION*/
+
+
+#paginate-links{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-align: center;
+}
+
+#paginate-links li{
+    display: inline-block;
+    width:3rem;
+    height:3rem;
+    padding: 0.3rem;
+    margin:0 0.25rem 2rem 0.25rem;
+    background-color: white;
+    border-radius: 3rem;
+    font-size: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+#paginate-links li.number.active{
+    background-color:#e52a6f;
+    color:white;
+}
+
+#paginate-links li:hover{
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
