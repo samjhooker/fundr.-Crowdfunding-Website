@@ -57,7 +57,7 @@
                 <div id="update-image" class="box-shadow" v-on:click="insertImageButtonPressed">
                     <div class="center" id="update-image-label"></div>
                 </div>
-                <button class="button" id="close-project-button">close project.<br/>this cannot be undone</button>
+                <button class="button" id="close-project-button" v-on:click="closeButtonPressed">close project.<br/>this cannot be undone</button>
                 <input class="hidden" type="file" id="files" name="files[]" accept="image/*" v-on:change="fileChoosen" single/>
 
             </div>
@@ -191,16 +191,7 @@
                         var backers =responce.body.backers;
                         this.populateBackers(backers);
                         this.displayUserBacker(backers)
-
-
-                        var id = localStorage.getItem("currentUserId");
-                        if(id){
-                            for(var index in this.creators){
-                                if(this.creators[index].id == parseInt(id)){
-                                    this.isCreator = true;
-                                }
-                            }
-                        }
+                        this.checkCreators();
 
 
                         this.isLoaded = true;
@@ -210,6 +201,18 @@
 
                     });
 
+            },
+            checkCreators: function(){
+                var isCreatorTemp=false;
+                var id = localStorage.getItem("currentUserId");
+                if(id){
+                    for(var index in this.creators){
+                        if(this.creators[index].id == parseInt(id)){
+                            isCreatorTemp = true;
+                        }
+                    }
+                }
+                this.isCreator = isCreatorTemp;
             },
             populateBackers: function (backers) {
                 var recentBackers = [];
@@ -266,6 +269,43 @@
                     return interval + " minutes";
                 }
                 return Math.floor(seconds) + " seconds";
+            },
+            closeButtonPressed: function () {
+                this.checkCreators();
+                if(this.isCreator){
+
+                    swal({
+                        title: "Are you sure?",
+                        text: "Once closing, you cannot re-open this project!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                        .then((willDelete) => {
+                            if (willDelete) {
+
+                                var data = {
+                                    "open": false
+                                }
+
+                                this.$http.put(this.$root.$data.url + 'projects/'+this.projectId, data,
+                                    {headers:{'X-Authorization': localStorage.getItem('currentUserToken')}})
+                                    .then(function(responce){
+                                        swal("Closed!", "Project has been closed. It cannot be reopened again.", "success");
+                                    }, function(error){
+                                        swal("I don't even!", "The project could be not be closed. please try again.", "error");
+                                        console.log(error);
+                                    });
+
+                            }
+                        });
+
+
+                }else{
+                    swal("How'd you get here?", "Only the creator of the project can close it. Ensure you are logged in.", "error");
+                }
+
+
             }
         }
 
