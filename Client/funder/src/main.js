@@ -7,6 +7,8 @@ import PledgedProjects from './PledgedProjects.vue'
 import CreatedProjects from './CreatedProjects.vue'
 import CreateProject from './CreateProject.vue'
 import Pledge from './Pledge.vue'
+import NotFound from './NotFound.vue'
+
 
  //   __                 _
  //  / _|               | |
@@ -54,6 +56,10 @@ const routes = [
     {
         path:"/projects/create",
         component: CreateProject
+    },
+    {
+        path:"*",
+        component: NotFound
     }];
 
 const router = new VueRouter({

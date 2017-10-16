@@ -11,17 +11,8 @@
     </div>
     <div id="header-content" class="box-shadow" v-bind:class="{'header-expanded':headerExpanded}">
       <div id="funder-about" class="normal-text">
-        "don't use straight black or boxes in interface design" - Professor Andy Cockburn
+        fundr helps artists, musicians, filmmakers, designers, and other creators find the resources and support they need to make their ideas a reality. To date, <div class="box-shadow" id="random-number">{{ randomNumber }}</div> creative projects — big and small — have come to life with the support of the fundr community.
         <br><br>
-        funder was designed with the ideologies of brutal simplicity and monochromatic croudfunding.
-        <br><br>
-        it is as simple as black and white, an idea that governs both the website and it’s inherit design as well as the crowdfunding experience within the website. everything is designed with an intuitive purpose absent of manuals and documentation; everything just works.
-        <br><br>
-        to your distaste, you shall find no pleasure in drop shadows, gradients, border radius or anything but the colour #000. the modern design guidelines of apple, google and microsoft have been ignored in favour of black box borders, san-serif fonts and brutal sharp squares. i think its ugly, you probably do too, but thats what i like about it.
-        <br><br>
-        i have designed many websites before, but nothing black and white and even a bit brutalist … so i made this one. enjoy.
-        <br><br>
-        - admin
       </div>
       <div id="login-register">
         <div id="login" v-if="!isLoggedIn">
@@ -91,7 +82,8 @@
                 registerPassword: null,
                 loginName: 'login',
                 activeItem: 'home',
-                scrollPosition: null
+                scrollPosition: null,
+                randomNumber: parseInt(Math.random() * (999999 - 0) + 0)
             }
         },
         watch:{
