@@ -156,7 +156,7 @@
                 reader.onload = (function(theFile) {
                     return function(e) {
 
-                        $('#image-view-'+self.projectId).css('background-image', "url('"+e.target.result+"')");
+                        $('#image-view-'+self.cellId).css('background-image', "url('"+e.target.result+"')");
                         self.saveImage();
 
                     };
