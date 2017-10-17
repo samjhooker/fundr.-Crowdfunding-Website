@@ -115,6 +115,7 @@
                 if(this.projectData){
                     this.projectName = this.projectData.title;
                     this.projectSubtitle = this.projectData.subtitle;
+                    this.isOpen = this.projectData.open;
                     this.imageUrl = this.$root.$data.url.substring(0, this.$root.$data.url.length - 1)+ this.projectData.imageUri;
 
                     $('#image-view-'+this.cellId).css("background-image", "url('"+this.imageUrl+"')")
@@ -211,6 +212,7 @@
                         this.creators= responce.body.creators;
                         this.creationDate = this.timeSince(new Date(responce.body.creationDate)) + " ago";
                         this.target = responce.body.target;
+                        this.isOpen = responce.body.open;
                         if(responce.body.progress){
                             this.backerText = "$"+responce.body.progress.currentPledged + " pledged from " +responce.body.progress.numberOfBackers + " backers";
                             var percentage = parseInt((parseInt(responce.body.progress.currentPledged)/parseInt(responce.body.target)) * 100);
@@ -324,6 +326,7 @@
                                 this.$http.put(this.$root.$data.url + 'projects/'+this.projectId, data,
                                     {headers:{'X-Authorization': localStorage.getItem('currentUserToken')}})
                                     .then(function(responce){
+                                        this.isOpen = false;
                                         swal("Closed!", "Project has been closed. It cannot be reopened again.", "success");
                                     }, function(error){
                                         swal("I don't even know!", "The project could be not be closed. please try again.", "error");

@@ -825,6 +825,16 @@ button .swing{
     position: relative;
     -webkit-transition: all 0.5s; /* Safari */
     transition: all 0.5s;
+    display: flex;
+
+}
+
+#search-filter-bar h2{
+    font-size: 2rem;
+    padding:1% 2% 1% 2%;
+    display: inline-flex;
+    float:left;
+
 }
 
 #search-filter-input:hover {
@@ -833,38 +843,28 @@ button .swing{
     top: -3px;
 }
 
+#search-bar-wrapper{
+    margin-top:0.5rem;
+    overflow:auto;
+    display: inline-flex;
+    flex-grow: 100;
+}
+
+
 #search-filter-input{
+    width: 100%;
     border:solid;
     border-width:1px;
     border-radius: 0.4rem;
     text-align: center;
     -webkit-transition: all 0.2s; /* Safari */
     transition: all 0.2s;
-    width: 80%;
     height: 2.5rem;
     font-size: 1rem;
     border-color: #ebebeb;
     box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.12);
-
 }
-/*#projects-per-screen-select{*/
-    /*width: 19%;*/
-    /*margin-left: 1%;*/
-    /*font-size: 1rem;*/
-    /*height: 2.5rem;*/
-    /*color: #7e7575;*/
-    /*background-color: white;*/
-    /*border:solid;*/
-    /*border-radius: 0.4rem;*/
-    /*border-width: 1px;*/
-    /*border-color: #eaeaea;*/
-    /*box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.12);*/
 
-/*}*/
-
-#projects-per-screen-select{
-
-}
 
 
 /*#ea2e6d*/
@@ -872,10 +872,12 @@ button .swing{
 
 .wrapper-dropdown-5 {
     /* Size & position */
+    float:right;
     position: relative;
-    display: inline-block;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.12);
+    display: inline-flex;
     width: 19%;
-    margin: 0 0 0 1%;
+    margin: 0.5rem 0 0 1%;
     padding: 7px 15px 0 12px;
     font-size: 1rem;
     z-index: 5;
@@ -1190,7 +1192,10 @@ button .swing{
 
 #rewards-banner{
     width:90%;
-    padding-left:1rem;
+    padding:1rem;
+}
+#rewards-banner h2{
+    font-size: 2rem;
 }
 
 #information-title{

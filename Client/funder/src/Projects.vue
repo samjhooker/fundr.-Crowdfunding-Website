@@ -2,6 +2,8 @@
 
 
     <div>
+
+
         <paginate
                 id="main-content"
                 name="displayedData"
@@ -9,16 +11,14 @@
                 :per="parseInt(showPerPage)"
                 >
 
-            <div id="search-filter-bar">
-                <input placeholder='search' id="search-filter-input" v-on:keyup="searchInputChanged" v-model="searchInput">
-                <!--<select id="projects-per-screen-select" v-model="showPerPage">-->
-                    <!--<option value="6">6 per page</option>-->
-                    <!--<option value="12" selected="selected">12 per page</option>-->
-                    <!--<option value="24">24 per page</option>-->
-                    <!--<option value="100">view all</option>-->
-                <!--</select>-->
 
-                <div id="projects-per-screen-select" class="wrapper-dropdown-5 box-shadow" tabindex="1" v-on:click="toggleDropdown" v-bind:class="{'active': isDropdownActive}">
+
+            <div id="search-filter-bar">
+                <h2>all projects</h2>
+                <div id="search-bar-wrapper">
+                    <input placeholder='search' id="search-filter-input" v-on:keyup="searchInputChanged" v-model="searchInput">
+                </div>
+                <div id="projects-per-screen-select" class="wrapper-dropdown-5" tabindex="1" v-on:click="toggleDropdown" v-bind:class="{'active': isDropdownActive}">
                     {{ showPerPage }} per page
                     <ul class="dropdown">
                         <li><a @click="updateShowPerPage(6)">6 per page</a></li>
@@ -30,6 +30,9 @@
                 </div>
 
             </div>
+
+
+
 
             <i class="loading-spinner fa fa-spinner fa-3x fa-fw" v-show="!isLoaded" aria-hidden="true"></i>
 
