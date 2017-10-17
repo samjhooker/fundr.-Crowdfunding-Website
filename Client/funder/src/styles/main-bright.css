@@ -83,7 +83,16 @@ select:focus{
     color: #ea2e6d;
     margin-top:1.3rem;
     left: 6%;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
 }
+
+
+
+
 #account-text{
     position: absolute;
     color: #ea2e6d;
@@ -522,6 +531,8 @@ select:focus{
         width: max-content;
     }
 }
+
+
 .close-button{
     position: absolute;
     top:0.5rem;
@@ -548,6 +559,13 @@ select:focus{
 #project-name-title{
     margin-right: 3rem;
     font-weight: 400;
+}
+
+#closed-label{
+    margin-right: 3rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    width: fit-content;
 }
 
 #project-subtitle-title {
@@ -829,22 +847,133 @@ button .swing{
     box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.12);
 
 }
+/*#projects-per-screen-select{*/
+    /*width: 19%;*/
+    /*margin-left: 1%;*/
+    /*font-size: 1rem;*/
+    /*height: 2.5rem;*/
+    /*color: #7e7575;*/
+    /*background-color: white;*/
+    /*border:solid;*/
+    /*border-radius: 0.4rem;*/
+    /*border-width: 1px;*/
+    /*border-color: #eaeaea;*/
+    /*box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.12);*/
+
+/*}*/
+
 #projects-per-screen-select{
-    width: 19%;
-    margin-left: 1%;
-    font-size: 1rem;
-    height: 2.5rem;
-    color: #7e7575;
-    background-color: white;
-    border:solid;
-    border-radius: 0.4rem;
-    border-width: 1px;
-    border-color: #eaeaea;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.12);
 
 }
 
 
+/*#ea2e6d*/
+/*Hover #ba2360*/
+
+.wrapper-dropdown-5 {
+    /* Size & position */
+    position: relative;
+    display: inline-block;
+    width: 19%;
+    margin: 0 0 0 1%;
+    padding: 7px 15px 0 12px;
+    font-size: 1rem;
+    z-index: 5;
+    border: solid;
+    border-radius: 0.4rem;
+    border-width: 1px;
+    border-color: #eaeaea;
+    height: 2.5rem;
+    color:#808080;
+
+    /* Styles */
+    background: #fff;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease-out;
+
+}
+
+.wrapper-dropdown-5:after { /* Little arrow */
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    margin-top: -3px;
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: #ea2e6d transparent;
+}
+.wrapper-dropdown-5 .dropdown {
+    /* Size & position */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+
+    /* Styles */
+    background: #fff;
+    border-radius: 0 0 5px 5px;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-top: none;
+    border-bottom: none;
+    list-style: none;
+    transition: all 0.3s ease-out;
+
+    /* Hiding */
+    max-height: 0;
+    overflow: hidden;
+}
+
+.wrapper-dropdown-5 .dropdown li {
+    padding: 0 10px ;
+}
+
+.wrapper-dropdown-5 .dropdown li a {
+    display: block;
+    text-decoration: none;
+    color: #333;
+    padding: 10px 0;
+    transition: all 0.3s ease-out;
+    border-bottom: 1px solid #e6e8ea;
+}
+
+.wrapper-dropdown-5 .dropdown li:last-of-type a {
+    border: none;
+}
+
+.wrapper-dropdown-5 .dropdown li i {
+    margin-right: 5px;
+    color: inherit;
+    vertical-align: middle;
+}
+
+/* Hover state */
+
+.wrapper-dropdown-5 .dropdown li:hover a {
+    color: #ea2e6d;
+}
+
+/* Active state */
+
+.wrapper-dropdown-5.active {
+    border-radius: 5px 5px 0 0;
+    background: #ea2e6d;
+    box-shadow: none;
+    border-bottom: none;
+    color: white;
+}
+
+.wrapper-dropdown-5.active:after {
+    border-color: #fff transparent;
+}
+
+.wrapper-dropdown-5.active .dropdown {
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    max-height: 400px;
+}
 
 
 
@@ -1564,6 +1693,19 @@ ol.progtrckr li.progtrckr-todo:before {
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 
 }
+.swal-title{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1633,12 +1775,12 @@ ol.progtrckr li.progtrckr-todo:before {
     height:1.8rem;
     background-color: #dedede;
     color:#8B8B8B;
-    position: relative;
     font-size: 0.8rem;
     font-family: 'Montserrat', sans-serif;
-    left:0;
-    right:0;
+    position: relative;
+    right: 0;
     bottom: 0;
+    left: 0;
     margin:0;
     text-align: center;
     padding: 0.4rem;

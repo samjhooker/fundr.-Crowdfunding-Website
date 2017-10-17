@@ -5,7 +5,7 @@
   <div id="app">
 
     <div id="header" v-bind:class="{'colored-header': scrollPosition>100}">
-      <h1 id="header-title">fundr.</h1>
+      <h1 class="grow" id="header-title">fundr.</h1>
       <div id="account-text" v-on:click="loginButtonClicked()"><i class="fa fa-user" aria-hidden="true"></i>
         {{ loginName }}</div>
     </div>
@@ -87,7 +87,28 @@
             }
         },
         watch:{
-          '$route': function (from, to) {
+          '$route': function (to, from) {
+              console.log("TOOOO  "+to.path)
+
+              switch(to.path){
+                  case '/':
+                      this.activeItem = 'home';
+                      break;
+                  case '/projects':
+                      this.activeItem = 'projects';
+                      break;
+                  case '/projects/pledged':
+                      this.activeItem = 'pledged';
+                      break;
+                  case '/projects/created':
+                      this.activeItem = 'created';
+                      break;
+                  case '/projects/create':
+                      this.activeItem = 'create';
+                      break;
+
+              }
+
           }
         },
         mounted: function (){
@@ -185,7 +206,7 @@
                             this.loginUser(postData.username, postData.password);
                         }, function(error){
                             console.log(error);
-                            swal("uhh... It wasn't me", "There was an error creating your account. Please try again", "error")
+                            swal("Imposter", "An account with that username or email already exists. Please choose a new username or email and try again.", "error")
                     });
                 }
             },

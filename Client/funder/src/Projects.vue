@@ -11,12 +11,24 @@
 
             <div id="search-filter-bar">
                 <input placeholder='search' id="search-filter-input" v-on:keyup="searchInputChanged" v-model="searchInput">
-                <select id="projects-per-screen-select" v-model="showPerPage">
-                    <option value="6">6 per page</option>
-                    <option value="12" selected="selected">12 per page</option>
-                    <option value="24">24 per page</option>
-                    <option value="100">view all</option>
-                </select>
+                <!--<select id="projects-per-screen-select" v-model="showPerPage">-->
+                    <!--<option value="6">6 per page</option>-->
+                    <!--<option value="12" selected="selected">12 per page</option>-->
+                    <!--<option value="24">24 per page</option>-->
+                    <!--<option value="100">view all</option>-->
+                <!--</select>-->
+
+                <div id="projects-per-screen-select" class="wrapper-dropdown-5 box-shadow" tabindex="1" v-on:click="toggleDropdown" v-bind:class="{'active': isDropdownActive}">
+                    {{ showPerPage }} per page
+                    <ul class="dropdown">
+                        <li><a @click="updateShowPerPage(6)">6 per page</a></li>
+                        <li><a @click="updateShowPerPage(12)">12 per page</a></li>
+                        <li><a @click="updateShowPerPage(24)">24 per page</a></li>
+                        <li><a @click="updateShowPerPage(100)">100 per page</a></li>
+
+                    </ul>
+                </div>
+
             </div>
 
             <i class="loading-spinner fa fa-spinner fa-3x fa-fw" v-show="!isLoaded" aria-hidden="true"></i>
@@ -70,11 +82,12 @@
                 displayNoProjects: false,
                 showPerPage:12,
                 selectedShowNumber:null,
+                isDropdownActive: false,
 
             }
         },
         mounted: function (){
-            this.$http.get(this.$root.$data.url + 'projects?open=true')
+            this.$http.get(this.$root.$data.url + 'projects' + '?open=true')
                 .then(function(responce){
                     console.log("projects recieved");
                     console.log(responce);
@@ -89,6 +102,12 @@
                 });
         },
         methods: {
+            toggleDropdown: function () {
+                this.isDropdownActive = ! this.isDropdownActive;
+            },
+            updateShowPerPage: function (value) {
+              this.showPerPage = parseInt(value);
+            },
             onPageChange: function () {
                 $('html,body').animate({
                         scrollTop: 0},

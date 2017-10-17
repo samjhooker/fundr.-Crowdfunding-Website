@@ -1,9 +1,11 @@
 <template>
     <div class="content-cell" v-bind:class="{'expanded-content-cell':isExtended}" v-on:click="contentCellClicked">
         <div id="cell-title" v-show="!isExtended">
+            <h2 v-if="!isOpen" id="closed-label" class=" white-project-title-text">Project Closed</h2>
             <h2 id="project-name-title" class="white-project-title-text">{{ projectName }}</h2>
             <div id="project-subtitle-title" class="white-project-title-text normal-text">{{ projectSubtitle }}</div>
         </div>
+
 
         <div v-bind:id="'image-view-'+cellId" class="image-view"></div>
 
@@ -24,7 +26,7 @@
                 <i class="loading-spinner fa fa-spinner fa-pulse fa-3x fa-fw" v-show="!isLoaded" aria-hidden="true"></i>
                 <div id="description-text" class="normal-text" v-show="isLoaded">
                     {{ projectSubtitle }}<br><br>
-                    <div v-if="status == false">THIS PROJECT IS CLOSED<br></div>
+                    <div v-if="!isOpen">THIS PROJECT IS CLOSED<br></div>
                     <div v-if="target != null"><strong>target:</strong> ${{target}}<br></div>
                     <div v-for="creator in creators"><strong>creator:</strong> {{creator.username}}<br></div>
                     <div v-if="creationDate != null"><strong>date:</strong> {{creationDate}}<br></div>
@@ -90,7 +92,7 @@
                 creationDate:null,
                 rewards:[],
                 target:null,
-                status:null,
+                isOpen:null,
                 backerText:null,
                 pledges:[],
                 usersPledge:null,
@@ -103,9 +105,8 @@
                 this.projectName = this.projectData.title;
                 this.projectSubtitle = this.projectData.subtitle;
                 this.imageUrl = this.$root.$data.url.substring(0, this.$root.$data.url.length - 1)+ this.projectData.imageUri;
-                console.log(Math.random().toString(36).substr(2, 9));
+                this.isOpen = this.projectData.open;
                 $('#image-view-'+this.cellId).css("background-image", "url('"+this.imageUrl+"')")
-
             }
 
         },
@@ -182,11 +183,14 @@
 
             },
             pledgeClicked : function(){
-                console.log(this.creators);
                 var username = localStorage.getItem("currentUserName");
                 if(username){
                     if(this.isCreator){
                         swal("Sorry!", "For legal reasons, you cannot pledge to your own project.", "error");
+                        return;
+                    }
+                    if(!this.isOpen){
+                        swal("Nooooo!", "This project is closed. You cannot pledge to a closed project", "error");
                         return;
                     }
                     this.$router.push('/pledge/'+this.projectId);
@@ -207,7 +211,6 @@
                         this.creators= responce.body.creators;
                         this.creationDate = this.timeSince(new Date(responce.body.creationDate)) + " ago";
                         this.target = responce.body.target;
-                        this.status = responce.body.open;
                         if(responce.body.progress){
                             this.backerText = "$"+responce.body.progress.currentPledged + " pledged from " +responce.body.progress.numberOfBackers + " backers";
                             var percentage = parseInt((parseInt(responce.body.progress.currentPledged)/parseInt(responce.body.target)) * 100);
@@ -323,7 +326,7 @@
                                     .then(function(responce){
                                         swal("Closed!", "Project has been closed. It cannot be reopened again.", "success");
                                     }, function(error){
-                                        swal("I don't even!", "The project could be not be closed. please try again.", "error");
+                                        swal("I don't even know!", "The project could be not be closed. please try again.", "error");
                                         console.log(error);
                                     });
 
