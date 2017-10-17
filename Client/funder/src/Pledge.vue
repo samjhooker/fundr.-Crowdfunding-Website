@@ -135,7 +135,7 @@
         },
         methods: {
             init: function () {
-                $(".pledge-image").css('background-image', 'url("http://localhost:4941/api/v2' +  this.imageUri +'")');
+                $(".pledge-image").css('background-image', 'url("' + this.$root.$data.url +  this.imageUri +'")');
 
             },
             returnToProjects: function(){
