@@ -17,17 +17,17 @@
       <div id="login-register">
         <div id="login" v-if="!isLoggedIn">
           <h3>login</h3>
-          <input class="login-form" type="text" name="username" v-model="loginEmail" placeholder="username or email"><br>
-          <input class="login-form" type="password" name="password" v-model="loginPassword" placeholder="password"><br>
-          <input type="submit" class="white-button" value="login"  v-on:click="loginSubmit()"/>
+          <input id="login-email" class="login-form" type="text" name="username" v-model="loginEmail" placeholder="username or email"><br>
+          <input id="login-password" class="login-form" type="password" name="password" v-model="loginPassword" placeholder="password"><br>
+          <input  id="login-submit" type="submit" class="white-button" value="login"  v-on:click="loginSubmit()"/>
         </div>
         <div id="register" v-if="!isLoggedIn">
           <h3>register</h3>
-          <input class="login-form" type="text" name="username" v-model="registerUsername" placeholder="username"><br>
-          <input class="login-form" type="text" name="email" v-model="registerEmail" placeholder="email"><br>
-          <input class="login-form" type="password" name="password" v-model="registerPassword" placeholder="password"><br>
-          <input class="login-form" type="text" name="location" v-model="registerLocation" placeholder="location"><br>
-          <input type="submit" class="white-button" value="register"  v-on:click="registerSubmit()"/>
+          <input id="register-username" class="login-form" type="text" name="username" v-model="registerUsername" placeholder="username"><br>
+          <input id="register-email" class="login-form" type="text" name="email" v-model="registerEmail" placeholder="email"><br>
+          <input  id="register-password" class="login-form" type="password" name="password" v-model="registerPassword" placeholder="password"><br>
+          <input  id="register-location" class="login-form" type="text" name="location" v-model="registerLocation" placeholder="location"><br>
+          <input  id="register-submit" type="submit" class="white-button" value="register"  v-on:click="registerSubmit()"/>
 
         </div>
         <div v-else>
@@ -88,7 +88,6 @@
         },
         watch:{
           '$route': function (from, to) {
-              console.log("TOOOO: "+ to);
           }
         },
         mounted: function (){
@@ -138,15 +137,20 @@
             loginSubmit: function () {
                 if(this.loginEmail && this.loginPassword){
                     this.loginUser(this.loginEmail, this.loginPassword);
+                }else{
+                    if(!this.loginEmail) this.swing("#login-email");
+                    if(!this.loginPassword) this.swing("#login-password");
                 };
 
             },
             checkRegistrationDataValid: function(){
-                if(!this.registerPassword && !this.registerEmail && !this.registerUsername){
-                    alert("Required Username, Email, Password");
+                if(!this.registerPassword || !this.registerEmail || !this.registerUsername){
+                    if(!this.registerPassword) this.swing("#register-password");
+                    if(!this.registerEmail) this.swing("#register-email");
+                    if(!this.registerUsername) this.swing("#register-username");
                     return false;
                 } else if (!this.isValidEmail(this.registerEmail)){
-                    alert("Email is invalid");
+                    this.swing("#register-email");
                     return false;
                 }
                 return true;
@@ -160,19 +164,20 @@
                         this.getUserFromID(responce.body.id, responce.body.token);
                     }, function(error){
                         console.log(error);
-                        alert("error Login");
+                        this.loginPassword = null;
+                        this.swing("#login-submit");
                     });
             },
             registerSubmit: function(){
                 if(this.checkRegistrationDataValid()){
 
+                    console.log(this.registerPassword);
                     let postData = {
                         "username": this.registerUsername,
                         "email": this.registerEmail,
                         "password": this.registerPassword,
-                        "location": this.registerLocation
+                        "location": ((this.registerLocation) ? this.registerLocation : "not disclosed")
                     };
-                    console.log(postData);
 
                     this.$http.post(this.$root.$data.url + 'users/', postData)
                         .then(function(responce){
@@ -180,7 +185,7 @@
                             this.loginUser(postData.username, postData.password);
                         }, function(error){
                             console.log(error);
-                            alert("error Create Account");
+                            swal("uhh... It wasn't me", "There was an error creating your account. Please try again", "error")
                     });
                 }
             },
@@ -223,7 +228,13 @@
                     });
 
 
-            }
+            },
+            swing: function(node){
+                var el = $(node).addClass('swing');
+                setTimeout(function() {
+                    el.removeClass('swing');
+                }, 800);
+            },
         }
     }
 </script>

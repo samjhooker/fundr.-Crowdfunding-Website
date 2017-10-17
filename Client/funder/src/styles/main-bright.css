@@ -1,4 +1,5 @@
 /*#ea2e6d*/
+/*Hover #ba2360*/
 
 body{
     font-family: 'Open Sans', sans-serif;
@@ -36,6 +37,9 @@ input:focus{
     box-shadow: none;
     outline:none;
     background-color: #eaeaea;
+}
+input[type=submit]:focus{
+    background-color: #a71f55;
 }
 
 textarea:focus{
@@ -731,9 +735,13 @@ select:focus{
 }
 .swing
 {
-    background-color: #eaeaea !important;
+    background-color: #eaeaea;
     -webkit-animation: swing 0.8s;
     animation: swing 0.8s;
+
+}
+button .swing{
+    background-color: #ba2360 !important;
 
 }
 
@@ -906,11 +914,16 @@ select:focus{
     width: 50%;
     font-size: 2rem;
     font-family: 'Montserrat', sans-serif;
+    /*font-weight: 700;*/
     border:solid;
     border-width: 0 0 1px 0;
     border-color: #ea2e6d;
     -webkit-transition: all 0.5s; /* Safari */
     transition: all 0.5s;
+}
+
+#project-name-input:focus{
+    background-color: white !important;
 }
 
 .project-name-input-top{
